@@ -8,35 +8,138 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as PublicAuthProjectDeveloperLayoutRouteImport } from './routes/_public/auth/project-developer/_layout'
+import { Route as PublicAuthCompanyLayoutRouteImport } from './routes/_public/auth/company/_layout'
+import { Route as PublicAuthProjectDeveloperLayoutRegisterRouteImport } from './routes/_public/auth/project-developer/_layout.register'
+import { Route as PublicAuthProjectDeveloperLayoutLoginRouteImport } from './routes/_public/auth/project-developer/_layout.login'
+import { Route as PublicAuthCompanyLayoutRegisterRouteImport } from './routes/_public/auth/company/_layout.register'
+import { Route as PublicAuthCompanyLayoutLoginRouteImport } from './routes/_public/auth/company/_layout.login'
+
+const PublicAuthProjectDeveloperRouteImport = createFileRoute(
+  '/_public/auth/project-developer',
+)()
+const PublicAuthCompanyRouteImport = createFileRoute('/_public/auth/company')()
 
 const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/_public/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublicAuthProjectDeveloperRoute =
+  PublicAuthProjectDeveloperRouteImport.update({
+    id: '/_public/auth/project-developer',
+    path: '/auth/project-developer',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PublicAuthCompanyRoute = PublicAuthCompanyRouteImport.update({
+  id: '/_public/auth/company',
+  path: '/auth/company',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicAuthProjectDeveloperLayoutRoute =
+  PublicAuthProjectDeveloperLayoutRouteImport.update({
+    id: '/_layout',
+    getParentRoute: () => PublicAuthProjectDeveloperRoute,
+  } as any)
+const PublicAuthCompanyLayoutRoute = PublicAuthCompanyLayoutRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => PublicAuthCompanyRoute,
+} as any)
+const PublicAuthProjectDeveloperLayoutRegisterRoute =
+  PublicAuthProjectDeveloperLayoutRegisterRouteImport.update({
+    id: '/register',
+    path: '/register',
+    getParentRoute: () => PublicAuthProjectDeveloperLayoutRoute,
+  } as any)
+const PublicAuthProjectDeveloperLayoutLoginRoute =
+  PublicAuthProjectDeveloperLayoutLoginRouteImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => PublicAuthProjectDeveloperLayoutRoute,
+  } as any)
+const PublicAuthCompanyLayoutRegisterRoute =
+  PublicAuthCompanyLayoutRegisterRouteImport.update({
+    id: '/register',
+    path: '/register',
+    getParentRoute: () => PublicAuthCompanyLayoutRoute,
+  } as any)
+const PublicAuthCompanyLayoutLoginRoute =
+  PublicAuthCompanyLayoutLoginRouteImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => PublicAuthCompanyLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
+  '/auth/company': typeof PublicAuthCompanyLayoutRouteWithChildren
+  '/auth/project-developer': typeof PublicAuthProjectDeveloperLayoutRouteWithChildren
+  '/auth/company/login': typeof PublicAuthCompanyLayoutLoginRoute
+  '/auth/company/register': typeof PublicAuthCompanyLayoutRegisterRoute
+  '/auth/project-developer/login': typeof PublicAuthProjectDeveloperLayoutLoginRoute
+  '/auth/project-developer/register': typeof PublicAuthProjectDeveloperLayoutRegisterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
+  '/auth/company': typeof PublicAuthCompanyLayoutRouteWithChildren
+  '/auth/project-developer': typeof PublicAuthProjectDeveloperLayoutRouteWithChildren
+  '/auth/company/login': typeof PublicAuthCompanyLayoutLoginRoute
+  '/auth/company/register': typeof PublicAuthCompanyLayoutRegisterRoute
+  '/auth/project-developer/login': typeof PublicAuthProjectDeveloperLayoutLoginRoute
+  '/auth/project-developer/register': typeof PublicAuthProjectDeveloperLayoutRegisterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public/': typeof PublicIndexRoute
+  '/_public/auth/company': typeof PublicAuthCompanyRouteWithChildren
+  '/_public/auth/company/_layout': typeof PublicAuthCompanyLayoutRouteWithChildren
+  '/_public/auth/project-developer': typeof PublicAuthProjectDeveloperRouteWithChildren
+  '/_public/auth/project-developer/_layout': typeof PublicAuthProjectDeveloperLayoutRouteWithChildren
+  '/_public/auth/company/_layout/login': typeof PublicAuthCompanyLayoutLoginRoute
+  '/_public/auth/company/_layout/register': typeof PublicAuthCompanyLayoutRegisterRoute
+  '/_public/auth/project-developer/_layout/login': typeof PublicAuthProjectDeveloperLayoutLoginRoute
+  '/_public/auth/project-developer/_layout/register': typeof PublicAuthProjectDeveloperLayoutRegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth/company'
+    | '/auth/project-developer'
+    | '/auth/company/login'
+    | '/auth/company/register'
+    | '/auth/project-developer/login'
+    | '/auth/project-developer/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_public/'
+  to:
+    | '/'
+    | '/auth/company'
+    | '/auth/project-developer'
+    | '/auth/company/login'
+    | '/auth/company/register'
+    | '/auth/project-developer/login'
+    | '/auth/project-developer/register'
+  id:
+    | '__root__'
+    | '/_public/'
+    | '/_public/auth/company'
+    | '/_public/auth/company/_layout'
+    | '/_public/auth/project-developer'
+    | '/_public/auth/project-developer/_layout'
+    | '/_public/auth/company/_layout/login'
+    | '/_public/auth/company/_layout/register'
+    | '/_public/auth/project-developer/_layout/login'
+    | '/_public/auth/project-developer/_layout/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicAuthCompanyRoute: typeof PublicAuthCompanyRouteWithChildren
+  PublicAuthProjectDeveloperRoute: typeof PublicAuthProjectDeveloperRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +151,129 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_public/auth/project-developer': {
+      id: '/_public/auth/project-developer'
+      path: '/auth/project-developer'
+      fullPath: '/auth/project-developer'
+      preLoaderRoute: typeof PublicAuthProjectDeveloperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/auth/company': {
+      id: '/_public/auth/company'
+      path: '/auth/company'
+      fullPath: '/auth/company'
+      preLoaderRoute: typeof PublicAuthCompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/auth/project-developer/_layout': {
+      id: '/_public/auth/project-developer/_layout'
+      path: '/auth/project-developer'
+      fullPath: '/auth/project-developer'
+      preLoaderRoute: typeof PublicAuthProjectDeveloperLayoutRouteImport
+      parentRoute: typeof PublicAuthProjectDeveloperRoute
+    }
+    '/_public/auth/company/_layout': {
+      id: '/_public/auth/company/_layout'
+      path: '/auth/company'
+      fullPath: '/auth/company'
+      preLoaderRoute: typeof PublicAuthCompanyLayoutRouteImport
+      parentRoute: typeof PublicAuthCompanyRoute
+    }
+    '/_public/auth/project-developer/_layout/register': {
+      id: '/_public/auth/project-developer/_layout/register'
+      path: '/register'
+      fullPath: '/auth/project-developer/register'
+      preLoaderRoute: typeof PublicAuthProjectDeveloperLayoutRegisterRouteImport
+      parentRoute: typeof PublicAuthProjectDeveloperLayoutRoute
+    }
+    '/_public/auth/project-developer/_layout/login': {
+      id: '/_public/auth/project-developer/_layout/login'
+      path: '/login'
+      fullPath: '/auth/project-developer/login'
+      preLoaderRoute: typeof PublicAuthProjectDeveloperLayoutLoginRouteImport
+      parentRoute: typeof PublicAuthProjectDeveloperLayoutRoute
+    }
+    '/_public/auth/company/_layout/register': {
+      id: '/_public/auth/company/_layout/register'
+      path: '/register'
+      fullPath: '/auth/company/register'
+      preLoaderRoute: typeof PublicAuthCompanyLayoutRegisterRouteImport
+      parentRoute: typeof PublicAuthCompanyLayoutRoute
+    }
+    '/_public/auth/company/_layout/login': {
+      id: '/_public/auth/company/_layout/login'
+      path: '/login'
+      fullPath: '/auth/company/login'
+      preLoaderRoute: typeof PublicAuthCompanyLayoutLoginRouteImport
+      parentRoute: typeof PublicAuthCompanyLayoutRoute
+    }
   }
 }
 
+interface PublicAuthCompanyLayoutRouteChildren {
+  PublicAuthCompanyLayoutLoginRoute: typeof PublicAuthCompanyLayoutLoginRoute
+  PublicAuthCompanyLayoutRegisterRoute: typeof PublicAuthCompanyLayoutRegisterRoute
+}
+
+const PublicAuthCompanyLayoutRouteChildren: PublicAuthCompanyLayoutRouteChildren =
+  {
+    PublicAuthCompanyLayoutLoginRoute: PublicAuthCompanyLayoutLoginRoute,
+    PublicAuthCompanyLayoutRegisterRoute: PublicAuthCompanyLayoutRegisterRoute,
+  }
+
+const PublicAuthCompanyLayoutRouteWithChildren =
+  PublicAuthCompanyLayoutRoute._addFileChildren(
+    PublicAuthCompanyLayoutRouteChildren,
+  )
+
+interface PublicAuthCompanyRouteChildren {
+  PublicAuthCompanyLayoutRoute: typeof PublicAuthCompanyLayoutRouteWithChildren
+}
+
+const PublicAuthCompanyRouteChildren: PublicAuthCompanyRouteChildren = {
+  PublicAuthCompanyLayoutRoute: PublicAuthCompanyLayoutRouteWithChildren,
+}
+
+const PublicAuthCompanyRouteWithChildren =
+  PublicAuthCompanyRoute._addFileChildren(PublicAuthCompanyRouteChildren)
+
+interface PublicAuthProjectDeveloperLayoutRouteChildren {
+  PublicAuthProjectDeveloperLayoutLoginRoute: typeof PublicAuthProjectDeveloperLayoutLoginRoute
+  PublicAuthProjectDeveloperLayoutRegisterRoute: typeof PublicAuthProjectDeveloperLayoutRegisterRoute
+}
+
+const PublicAuthProjectDeveloperLayoutRouteChildren: PublicAuthProjectDeveloperLayoutRouteChildren =
+  {
+    PublicAuthProjectDeveloperLayoutLoginRoute:
+      PublicAuthProjectDeveloperLayoutLoginRoute,
+    PublicAuthProjectDeveloperLayoutRegisterRoute:
+      PublicAuthProjectDeveloperLayoutRegisterRoute,
+  }
+
+const PublicAuthProjectDeveloperLayoutRouteWithChildren =
+  PublicAuthProjectDeveloperLayoutRoute._addFileChildren(
+    PublicAuthProjectDeveloperLayoutRouteChildren,
+  )
+
+interface PublicAuthProjectDeveloperRouteChildren {
+  PublicAuthProjectDeveloperLayoutRoute: typeof PublicAuthProjectDeveloperLayoutRouteWithChildren
+}
+
+const PublicAuthProjectDeveloperRouteChildren: PublicAuthProjectDeveloperRouteChildren =
+  {
+    PublicAuthProjectDeveloperLayoutRoute:
+      PublicAuthProjectDeveloperLayoutRouteWithChildren,
+  }
+
+const PublicAuthProjectDeveloperRouteWithChildren =
+  PublicAuthProjectDeveloperRoute._addFileChildren(
+    PublicAuthProjectDeveloperRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
+  PublicAuthCompanyRoute: PublicAuthCompanyRouteWithChildren,
+  PublicAuthProjectDeveloperRoute: PublicAuthProjectDeveloperRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -3,10 +3,10 @@ import { Link } from '@tanstack/react-router'
 
 const links = [
   { name: 'Home', route: '/' },
-  { name: 'Company', route: '/' },
-  { name: 'Developer', route: '/' },
-  { name: 'About', route: '/' },
-  { name: 'Contact', route: '/' },
+  { name: 'Company', route: '/auth/company/login' },
+  { name: 'Developer', route: '/auth/project-developer/login' },
+  { name: 'About', route: '/about' },
+  { name: 'Contact', route: '/contact' },
 ]
 
 export default function Header() {
@@ -16,12 +16,12 @@ export default function Header() {
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
-              <a className="block text-primary" href="#">
+              <Link to="/" className="block text-primary">
                 <span className="sr-only">Home</span>
                 <h1 className="text-4xl font-bold">
                   H<sub>2</sub>Grid
                 </h1>
-              </a>
+              </Link>
             </div>
 
             <div className="hidden md:block">
