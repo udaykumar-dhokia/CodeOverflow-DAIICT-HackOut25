@@ -45,7 +45,7 @@ const AuthController = {
 
   register: async (req, res) => {
     const { name, email, password, asset_type } = req.body;
-    if (!name || !email || !password || !asset_type) {
+    if (!name || !email || !password)  {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ message: "Missing required fields." });

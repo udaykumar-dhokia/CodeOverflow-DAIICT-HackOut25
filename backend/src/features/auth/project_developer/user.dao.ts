@@ -4,7 +4,7 @@ export type UserType = {
   name: string;
   email: string;
   password: string;
-  asset_type: "plant" | "storage" | "pipeline" | "distribution_hub";
+  asset_type: "plant" | "storage" | "pipeline" | "distribution_hub" | "";
 };
 
 class UserDAO {
@@ -24,7 +24,6 @@ class UserDAO {
       name: payload.name,
       email: payload.email,
       password: payload.password,
-      asset_type: payload.asset_type,
     });
     return user.save();
   }

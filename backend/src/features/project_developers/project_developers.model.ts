@@ -5,7 +5,7 @@ export interface ProjectDeveloperInterface extends Document {
   name: string
   email: string
   password: string
-  asset_type: "plant" | "storage" | "pipeline" | "distribution_hub"
+  asset_type: "plant" | "storage" | "pipeline" | "distribution_hub" | ""
   createdAt?: Date
   updatedAt?: Date
 }
@@ -17,8 +17,9 @@ const ProjectDeveloperSchema: Schema<ProjectDeveloperInterface> = new Schema(
     password: { type: String, required: true },
     asset_type: {
       type: String,
-      enum: ["plant", "storage", "pipeline", "distribution_hub"],
-      required: true,
+      enum: ["plant", "storage", "pipeline", "distribution_hub", ""],
+      required: false,
+      default: ""
     },
   },
   { timestamps: true }
