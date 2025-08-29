@@ -1,21 +1,21 @@
 import mongoose, { Document, Schema } from "mongoose"
 
-export interface SolarInterface extends Document {
+export interface WindInterface extends Document {
   latitude: number
   longitude: number
-    unit : number
+  speed : number  
   createdAt?: Date
   updatedAt?: Date
 }
 
-const SolarSchema: Schema<SolarInterface> = new Schema(
+const WindSchema: Schema<WindInterface> = new Schema(
   {
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
-    unit : {type: Number, required: true}
+    speed: { type: Number, required: true }
   },
   { timestamps: true }
 )
 
-const Solar = mongoose.model<SolarInterface>("Solar", SolarSchema)
-export default Solar
+const Wind = mongoose.model<WindInterface>("Wind", WindSchema)
+export default Wind

@@ -7,6 +7,7 @@ export interface StorageInterface extends Document {
   technology: string
   proximity_preference: "plant" | "demand" | "port"
   project_developer_id: ProjectDeveloperInterface["_id"]
+  location: Array<string>
   createdAt?: Date
   updatedAt?: Date
 }
@@ -21,6 +22,7 @@ const StorageSchema: Schema<StorageInterface> = new Schema(
       enum: ["plant", "demand", "port"],
       required: true,
     },
+    location: { type: [String], required: false, default: [] },
     project_developer_id: {
       type: Schema.Types.ObjectId,
       ref: "ProjectDeveloper",
