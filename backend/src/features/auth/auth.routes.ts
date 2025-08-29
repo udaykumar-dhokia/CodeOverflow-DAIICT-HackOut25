@@ -1,7 +1,12 @@
 import express from 'express'
 import AuthController from './project_developer/auth.controller'
+import AuthController2 from './company/auth.controller'
 const router = express.Router()
 router.post('/project-developer/register', AuthController.register)
 router.post('/project-developer/login', AuthController.login)
 router.post('/project-developer/logout', AuthController.logout)
+router.post('/company/register', AuthController2.register)
+router.post('/company/login', AuthController2.login)
+router.post('/company/logout', AuthController2.logout)
+
 export default router

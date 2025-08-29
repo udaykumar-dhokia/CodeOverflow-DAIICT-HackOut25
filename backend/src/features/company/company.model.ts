@@ -34,8 +34,8 @@ const CompanySchema: Schema<CompanyInterface> = new Schema(
       enum: ["plant", "storage", "pipeline", "distribution_hub"],
       required: true,
     },
-    latitude: { type: Number, required: true },
-    longitude: { type: Number, required: true },
+    latitude: { type: Number, required: false },
+    longitude: { type: Number, required: false },
   },
   { timestamps: true }
 )
