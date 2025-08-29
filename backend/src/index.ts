@@ -11,10 +11,12 @@ const app = express();
 const server = http.createServer(app);
 app.use(
   cors({
-    origin: ["*"],
+    origin: [
+      "http://localhost:5173", // local frontend
+    ],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
+    credentials: true, // allow cookies/authorization headers
+  })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
