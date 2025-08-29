@@ -9,8 +9,6 @@ import windroute from './features/wind/wind.route'
 import solarroute from './features/solar/solar.route'
 const app = express();
 const server = http.createServer(app);
-
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', projectdeveloperauth);
