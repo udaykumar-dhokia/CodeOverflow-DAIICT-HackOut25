@@ -4,13 +4,14 @@ import express from "express";
 import cors from "cors";
 import http from "http";
 import connectDB from "./config/db.config";
-
+import projectdeveloperauth from './features/auth/auth.routes'
 const app = express();
 const server = http.createServer(app);
 
 app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/auth', projectdeveloperauth);
 app.get("/", (req, res) => {
   return res.status(500).json({ message: "Server is up and running..." });
 });

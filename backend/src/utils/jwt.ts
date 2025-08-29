@@ -10,7 +10,7 @@ export const setToken = async (id: string) => {
   }
 
   const token = jwt.sign({ id }, JWT_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "10d",
   });
 
   return token;
