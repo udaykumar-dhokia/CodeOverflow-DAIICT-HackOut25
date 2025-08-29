@@ -75,6 +75,9 @@ const Footer = () => {
               </a>
             </li>
           </ul>
+          <p className="mt-12 text-center text-sm text-gray-500 lg:text-center">
+            Copyright &copy; 2025. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
