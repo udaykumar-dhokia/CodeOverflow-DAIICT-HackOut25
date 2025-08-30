@@ -1,4 +1,5 @@
 import { ChevronUp, Inbox, MessageCircle, User, User2 } from 'lucide-react'
+import back from '/back.jpeg'
 
 import {
   Sidebar,
@@ -24,8 +25,13 @@ import { useLogout } from '@/hooks/useLogout'
 
 const items = [
   {
-    title: 'Projects',
+    title: 'Dashoard',
     url: '/project-developer/dashboard',
+    icon: Inbox,
+  },
+  {
+    title: 'Projects',
+    url: '/project-developer/projects',
     icon: Inbox,
   },
   {
@@ -56,7 +62,9 @@ export function ProjectDeveloperSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="py-10">
-            <h1 className="text-4xl font-bold text-primary">
+            <span className="sr-only">Home</span>
+            <img src={back} alt="" className="w-15" />
+            <h1 className="text-4xl text-primary font-bold">
               H<sub>2</sub>Grid
             </h1>
           </SidebarGroupLabel>

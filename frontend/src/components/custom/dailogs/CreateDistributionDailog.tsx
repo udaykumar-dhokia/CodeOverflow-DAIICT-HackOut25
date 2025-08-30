@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../ui/dialog'
+} from '../../ui/dialog'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { store, type RootState } from '@/store/store'

@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../ui/dialog'
+} from '../../ui/dialog'
 import { useState } from 'react'
 import {
   Select,
@@ -50,13 +50,11 @@ export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
 
   const user = useSelector((state: RootState) => state.projectDeveloper.user)
 
-  const handleChange = (name: keyof PlantData, value: string | number) => {
+  const handleChange = (name: keyof PlantData, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [name]:
-        name === 'budget' || name === 'capacity'
-          ? Number(value)
-          : (value as string),
+        name === 'budget' || name === 'capacity' ? Number(value) || 0 : value,
     }))
   }
 
@@ -112,7 +110,7 @@ export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
               id="budget"
               name="budget"
               type="number"
-              value={formData.budget}
+              value={formData.budget || ''}
               onChange={(e) => handleChange('budget', e.target.value)}
               className="rounded-none"
             />
