@@ -11,10 +11,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import PlantDialog from '@/components/custom/CreatePlantDailog'
-import StorageDialog from '@/components/custom/CreateStorageDailog'
-import DistributionHubDialog from '@/components/custom/CreateDistributionDailog'
-import PipelineDialog from '@/components/custom/CreatePipelineDailog'
+import PlantDialog from '@/components/custom/dailogs/CreatePlantDailog'
+import StorageDialog from '@/components/custom/dailogs/CreateStorageDailog'
+import DistributionHubDialog from '@/components/custom/dailogs/CreateDistributionDailog'
+import PipelineDialog from '@/components/custom/dailogs/CreatePipelineDailog'
 
 export const Route = createFileRoute(
   '/_protected/project-developer/_layout/dashboard',

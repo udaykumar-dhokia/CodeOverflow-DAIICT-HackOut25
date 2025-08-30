@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { Provider } from 'react-redux'
+import { Analytics } from '@vercel/analytics/react'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -36,6 +37,7 @@ if (rootElement && !rootElement.innerHTML) {
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
+      <Analytics />
     </StrictMode>,
   )
 }
