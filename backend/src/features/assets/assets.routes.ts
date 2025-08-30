@@ -1,0 +1,12 @@
+import express from "express";
+import { createDistributionHub, createPipeline, createPlant, createStorage, updateDistributionHub, updatePipeline, updatePlant, updateStorage } from "./assets.controllers";
+const router = express.Router();
+router.post('/upload-data/distribution-hub', createDistributionHub);
+router.patch('/distribution-hubs/:id', updateDistributionHub);
+router.post('/upload-data/storage', createStorage);
+router.patch('/storage/:id', updateStorage);
+router.post('/upload-data/plants', createPlant);
+router.patch('/plants/:id', updatePlant);
+router.post('/upload-data/pipelines', createPipeline);
+router.patch('/pipelines/:id', updatePipeline);
+export default router;
