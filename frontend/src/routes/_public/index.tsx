@@ -2,6 +2,7 @@ import Footer from '@/components/custom/Footer'
 import Header from '@/components/custom/Header'
 import Hero from '@/components/custom/Hero'
 import MainHero from '@/components/custom/MainHero'
+import Steps from '@/components/custom/Steps'
 import FeaturesSectionDemo from '@/components/ui/features-section-demo-1'
 import { createFileRoute } from '@tanstack/react-router'
 
@@ -16,6 +17,7 @@ function App() {
       <MainHero />
       <Hero />
       <FeaturesSectionDemo />
+      <Steps />
       <Footer />
     </>
   )

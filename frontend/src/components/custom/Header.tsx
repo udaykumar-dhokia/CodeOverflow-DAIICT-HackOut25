@@ -6,7 +6,6 @@ const links = [
   { name: 'Home', route: '/' },
   { name: 'Company', route: '/auth/company/login' },
   { name: 'Developer', route: '/auth/project-developer/login' },
-  { name: 'About', route: '/about' },
   { name: 'Contact', route: '/contact' },
 ]
 
@@ -46,18 +45,10 @@ export default function Header() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="hidden sm:flex">
-                <a
-                  className="rounded-none bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary"
-                  href="#"
-                >
-                  Login
-                </a>
-              </div>
               <div className="sm:flex sm:gap-4">
                 <Link
                   className="flex items-center rounded-none bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-sm"
-                  to="/"
+                  to="/auth/project-developer/login"
                 >
                   <Icons.Plus /> Create New Project
                 </Link>

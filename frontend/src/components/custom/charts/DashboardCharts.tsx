@@ -40,7 +40,6 @@ const DashboardCharts: React.FC<ChartProps> = ({
     // Create a single tooltip div
     let tooltip = d3.select(tooltipRef.current)
     if (tooltip.empty()) {
-      // Tooltip div with correct type
       const tooltip = d3
         .select<HTMLDivElement, unknown>('body')
         .append('div')
@@ -82,9 +81,9 @@ const DashboardCharts: React.FC<ChartProps> = ({
     if (budgetChartRef.current) {
       const svg = d3.select(budgetChartRef.current)
       svg.selectAll('*').remove()
-      const width = 400
-      const height = 250
-      const margin = { top: 20, right: 20, bottom: 50, left: 50 }
+      const width = 600
+      const height = 400
+      const margin = { top: 30, right: 30, bottom: 60, left: 60 }
 
       const x = d3
         .scaleBand()
@@ -134,9 +133,9 @@ const DashboardCharts: React.FC<ChartProps> = ({
     if (projectsChartRef.current) {
       const svg = d3.select(projectsChartRef.current)
       svg.selectAll('*').remove()
-      const width = 400
-      const height = 250
-      const margin = { top: 20, right: 20, bottom: 50, left: 50 }
+      const width = 600
+      const height = 400
+      const margin = { top: 30, right: 30, bottom: 60, left: 60 }
 
       const x = d3
         .scaleBand()
@@ -186,9 +185,9 @@ const DashboardCharts: React.FC<ChartProps> = ({
     if (pieChartRef.current) {
       const svg = d3.select(pieChartRef.current)
       svg.selectAll('*').remove()
-      const width = 400
-      const height = 250
-      const radius = Math.min(width, height) / 2 - 20
+      const width = 600
+      const height = 400
+      const radius = Math.min(width, height) / 2 - 30
 
       const group = svg
         .append('g')
@@ -226,9 +225,9 @@ const DashboardCharts: React.FC<ChartProps> = ({
     if (stackedChartRef.current) {
       const svg = d3.select(stackedChartRef.current)
       svg.selectAll('*').remove()
-      const width = 400
-      const height = 250
-      const margin = { top: 20, right: 20, bottom: 50, left: 50 }
+      const width = 600
+      const height = 400
+      const margin = { top: 30, right: 30, bottom: 60, left: 60 }
 
       const data = assetTypes.map((type, i) => ({
         type,
@@ -303,29 +302,52 @@ const DashboardCharts: React.FC<ChartProps> = ({
   }, [plants, storage, pipelines, distributionHubs])
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-6 text-center">
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Total Budget by Asset</h3>
-        <svg ref={budgetChartRef} width={400} height={400}></svg>
-      </div>
+    <div className="p-8 min-h-screen">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* Chart Card */}
+        <div className="bg-white rounded-xl transition flex flex-col items-center">
+          <h3 className="text-2xl font-semibold mb-6 text-gray-700">
+            Total Budget by Asset
+          </h3>
+          <svg
+            ref={budgetChartRef}
+            viewBox="0 0 600 500"
+            className="w-full max-w-2xl h-96"
+          ></svg>
+        </div>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Number of Projects</h3>
-        <svg ref={projectsChartRef} width={400} height={400}></svg>
-      </div>
+        <div className="bg-white rounded-xl transition flex flex-col items-center">
+          <h3 className="text-2xl font-semibold mb-6 text-gray-700">
+            Number of Projects
+          </h3>
+          <svg
+            ref={projectsChartRef}
+            viewBox="0 0 600 500"
+            className="w-full max-w-2xl h-96"
+          ></svg>
+        </div>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-2">
-          Budget Share (Donut Chart)
-        </h3>
-        <svg ref={pieChartRef} width={400} height={400}></svg>
-      </div>
+        <div className="bg-white rounded-xl transition flex flex-col items-center">
+          <h3 className="text-2xl font-semibold mb-6 text-gray-700">
+            Budget Share (Donut Chart)
+          </h3>
+          <svg
+            ref={pieChartRef}
+            viewBox="0 0 600 500"
+            className="w-full max-w-2xl h-96"
+          ></svg>
+        </div>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-2">
-          Budget + Capacity (Stacked Bar)
-        </h3>
-        <svg ref={stackedChartRef} width={400} height={400}></svg>
+        <div className="bg-white rounded-xl transition flex flex-col items-center">
+          <h3 className="text-2xl font-semibold mb-6 text-gray-700">
+            Budget + Capacity (Stacked Bar)
+          </h3>
+          <svg
+            ref={stackedChartRef}
+            viewBox="0 0 600 500"
+            className="w-full max-w-2xl h-96"
+          ></svg>
+        </div>
       </div>
     </div>
   )

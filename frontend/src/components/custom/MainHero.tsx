@@ -2,7 +2,7 @@ import { Icons } from '@/assets/icons'
 import { motion } from 'motion/react'
 const MainHero = () => {
   return (
-    <div className="flex justify-center items-center min-h-[500px]">
+    <div className="flex justify-center items-center min-h-[700px]">
       <motion.div
         className="text-center flex flex-col items-center space-y-3"
         initial={{ opacity: 0, y: 50 }}
@@ -15,14 +15,14 @@ const MainHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <p className="underline">
+          <p className="underline text-xl">
             Now Analyse for{' '}
             <span className="text-primary font-bold">Future Plans</span> with AI
           </p>
         </motion.div>
 
         <motion.h1
-          className="text-4xl lg:text-5xl font-extrabold leading-tight"
+          className="text-4xl lg:text-7xl font-extrabold leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}

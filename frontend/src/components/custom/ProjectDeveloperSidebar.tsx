@@ -1,4 +1,13 @@
-import { ChevronUp, Inbox, MessageCircle, User, User2 } from 'lucide-react'
+import {
+  BuildingIcon,
+  ChevronUp,
+  Inbox,
+  LayoutDashboard,
+  MapPinPlus,
+  MessageCircle,
+  User,
+  User2,
+} from 'lucide-react'
 import back from '/back.jpeg'
 
 import {
@@ -27,17 +36,17 @@ const items = [
   {
     title: 'Dashoard',
     url: '/project-developer/dashboard',
-    icon: Inbox,
+    icon: LayoutDashboard,
   },
   {
     title: 'Projects',
     url: '/project-developer/projects',
-    icon: Inbox,
+    icon: BuildingIcon,
   },
   {
     title: 'Open Maps',
     url: '/project-developer/openmap',
-    icon: Inbox,
+    icon: MapPinPlus,
   },
   {
     title: 'Chat',

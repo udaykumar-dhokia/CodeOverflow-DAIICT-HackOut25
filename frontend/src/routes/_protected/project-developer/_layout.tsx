@@ -1,3 +1,4 @@
+import FloatingButton from '@/components/custom/FloatingButton'
 import { ProjectDeveloperSidebar } from '@/components/custom/ProjectDeveloperSidebar'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { setProjects } from '@/store/slices/assets.slice'
@@ -29,6 +30,7 @@ function RouteComponent() {
       <main className="w-full">
         <Outlet />
       </main>
+      <FloatingButton />
     </SidebarProvider>
   )
 }

@@ -40,8 +40,9 @@ const Hero = () => {
   }, [])
 
   return (
-    <section className="flex flex-col lg:flex-row items-center justify-between min-h-screen p-8 gap-8 bg-white">
-      <div className="flex-1 w-full h-[400px] lg:h-[800px] rounded-none overflow-hidden shadow-lg">
+    <section className="flex flex-col lg:flex-row items-start lg:items-center justify-between min-h-screen p-8 gap-8">
+      {/* Map Section */}
+      <div className="flex-1 w-full h-[400px] lg:h-[800px]  overflow-hidden shadow-lg border border-gray-200 transition-transform hover:scale-[1.01] duration-300">
         <MapContainer
           center={[20.5937, 78.9629]}
           zoom={5}
@@ -64,7 +65,7 @@ const Hero = () => {
               >
                 <Popup>
                   <div>
-                    <h3 className="font-bold">Solar Plant</h3>
+                    <h3 className="font-bold text-primary">Solar Plant</h3>
                     <p>
                       <strong>Unit:</strong> {item.unit}
                     </p>
@@ -89,34 +90,39 @@ const Hero = () => {
         </MapContainer>
       </div>
 
-      <div className="flex-1 text-center lg:text-left space-y-6">
+      {/* Sidebar */}
+      <div className="flex-1 flex flex-col space-y-6">
+        {/* Layer Toggle */}
         <div className="flex gap-4 justify-center lg:justify-start">
           <button
             onClick={() => setActiveLayer('solar')}
-            className={`px-4 py-2 rounded-none font-medium cursor-pointer ${
+            className={`px-5 py-2 font-medium transition-all cursor-pointer ${
               activeLayer === 'solar'
-                ? 'bg-primary text-white'
-                : 'bg-gray-200 text-gray-700'
+                ? 'bg-primary text-white shadow-md scale-105'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
             Solar
           </button>
           <button
             onClick={() => setActiveLayer('wind')}
-            className={`px-4 py-2 rounded-none font-medium cursor-pointer ${
+            className={`px-5 py-2 font-medium transition-all cursor-pointer ${
               activeLayer === 'wind'
-                ? 'bg-primary text-white'
-                : 'bg-gray-200 text-gray-700'
+                ? 'bg-primary text-white shadow-md scale-105'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
             Wind
           </button>
         </div>
 
-        <div className="mt-4 bg-gray-50 p-4 rounded-none shadow-inner space-y-2">
-          {activeLayer === 'solar' && (
+        {/* Stats Card */}
+        <div className="bg-white p-6  shadow-sm border border-gray-200">
+          {activeLayer === 'solar' ? (
             <>
-              <h2 className="font-semibold text-lg">Solar Stats</h2>
+              <h2 className="font-bold text-xl text-gray-800 mb-4">
+                Solar Stats
+              </h2>
               <p>Total Plants: {solars.length}</p>
               <p>
                 Max Unit:{' '}
@@ -131,11 +137,11 @@ const Hero = () => {
                   : 'N/A'}
               </p>
             </>
-          )}
-
-          {activeLayer === 'wind' && (
+          ) : (
             <>
-              <h2 className="font-semibold text-lg">Wind Stats (km/hr)</h2>
+              <h2 className="font-bold text-xl text-gray-800 mb-4">
+                Wind Stats (km/hr)
+              </h2>
               <p>Total Points: {winds.length}</p>
               <p>
                 Max Speed:{' '}
@@ -153,13 +159,13 @@ const Hero = () => {
           )}
         </div>
 
-        {/* List of items */}
-        <div className="mt-4 max-h-[300px] overflow-y-auto space-y-2">
+        {/* List */}
+        <div className="overflow-y-auto max-h-[350px] space-y-3">
           {activeLayer === 'solar' &&
             solars.map((s) => (
               <div
                 key={s._id}
-                className="p-2 border rounded-none bg-white shadow-sm"
+                className="p-3  bg-white shadow-sm border border-gray-200 hover:shadow-md transition"
               >
                 <p>
                   <strong>Unit:</strong> {s.unit}
@@ -174,7 +180,7 @@ const Hero = () => {
             winds.map((w) => (
               <div
                 key={w._id}
-                className="p-2 border rounded-none bg-white shadow-sm"
+                className="p-3  bg-white shadow-sm border border-gray-200 hover:shadow-md transition"
               >
                 <p>
                   <strong>Speed:</strong> {w.speed}
@@ -185,10 +191,6 @@ const Hero = () => {
               </div>
             ))}
         </div>
-
-        {/* <button className="cursor-pointer flex mt-6 px-6 py-3 bg-primary text-white rounded-none shadow-md hover:bg-primary/80 transition items-center gap-2">
-          Explore Now <Icons.ArrowUpSide />
-        </button> */}
       </div>
     </section>
   )

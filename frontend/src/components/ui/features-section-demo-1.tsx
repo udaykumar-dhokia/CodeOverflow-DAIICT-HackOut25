@@ -25,44 +25,44 @@ export default function FeaturesSectionDemo() {
 
 const grid = [
   {
-    title: 'HIPAA and SOC2 Compliant',
+    title: 'Renewable Project Mapping',
     description:
-      'Our applications are HIPAA and SOC2 compliant, your data is safe with us, always.',
+      'Interactive maps of solar, wind, storage, and pipeline projects across the hydrogen ecosystem.',
   },
   {
-    title: 'Automated Social Media Posting',
+    title: 'Real-Time Analytics',
     description:
-      'Schedule and automate your social media posts across multiple platforms to save time and maintain a consistent online presence.',
+      'Monitor energy generation, storage capacity, and pipeline flows with detailed charts and KPIs.',
   },
   {
-    title: 'Advanced Analytics',
+    title: 'Project Performance Insights',
     description:
-      'Gain insights into your social media performance with detailed analytics and reporting tools to measure engagement and ROI.',
+      'Evaluate project efficiency and ROI across multiple assets using advanced analytics tools.',
   },
   {
-    title: 'Content Calendar',
+    title: 'Regulatory Compliance',
     description:
-      'Plan and organize your social media content with an intuitive calendar view, ensuring you never miss a post.',
+      'Ensure all projects adhere to national energy regulations, safety standards, and environmental norms.',
   },
   {
-    title: 'Audience Targeting',
+    title: 'Capacity Forecasting',
     description:
-      'Reach the right audience with advanced targeting options, including demographics, interests, and behaviors.',
+      'Predict energy production and storage needs with AI-driven forecasting models for optimal planning.',
   },
   {
-    title: 'Social Listening',
+    title: 'Asset Health Monitoring',
     description:
-      'Monitor social media conversations and trends to stay informed about what your audience is saying and respond in real-time.',
-  },
-  {
-    title: 'Customizable Templates',
-    description:
-      "Create stunning social media posts with our customizable templates, designed to fit your brand's unique style and voice.",
+      'Track the performance and maintenance status of renewable assets to prevent downtime.',
   },
   {
     title: 'Collaboration Tools',
     description:
-      'Work seamlessly with your team using our collaboration tools, allowing you to assign tasks, share drafts, and provide feedback in real-time.',
+      'Manage teams, assign roles, and streamline communication for project execution and reporting.',
+  },
+  {
+    title: 'Customizable Dashboards',
+    description:
+      'Tailor your dashboards to visualize the metrics and projects most relevant to your business goals.',
   },
 ]
 

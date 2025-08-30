@@ -18,6 +18,14 @@ import PipelineDialog from '@/components/custom/dailogs/CreatePipelineDailog'
 import { axiosInstance } from '@/api/axiosInstance'
 import { toast } from 'sonner'
 import { setProjects } from '@/store/slices/assets.slice'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog'
 
 export const Route = createFileRoute(
   '/_protected/project-developer/_layout/projects',
@@ -29,14 +37,23 @@ function RouteComponent() {
   const assetsData = useSelector(
     (state: RootState) => state.projectDeveloperAssets,
   )
+
   const [isPlantDialogOpen, setIsPlantDialogOpen] = useState(false)
   const [isStorageDialogOpen, setIsStorageDialogOpen] = useState(false)
   const [isPipelineDialogOpen, setIsPipelineDialogOpen] = useState(false)
   const [isDistributionDialogOpen, setIsDistributionDialogOpen] =
     useState(false)
+
   const [searchQuery, setSearchQuery] = useState('')
   const [sortKey, __] = useState<'budget' | 'capacity' | ''>('')
   const [sortOrder, _] = useState<'asc' | 'desc'>('asc')
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState<{
+    type: string
+    id: string
+    name: string
+  } | null>(null)
 
   const {
     plants = [],
@@ -67,7 +84,15 @@ function RouteComponent() {
     console.log('View report:', type, id)
   }
 
-  const handleDelete = async (type: string, id: string) => {
+  const handleDelete = (type: string, id: string, name: string) => {
+    setDeleteTarget({ type, id, name })
+    setDeleteDialogOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteTarget) return
+
+    const { type, id } = deleteTarget
     let endpoint = ''
 
     switch (type) {
@@ -131,6 +156,9 @@ function RouteComponent() {
     } catch (err: any) {
       console.error(err)
       toast.error(err.response?.data?.message || 'Failed to delete asset!')
+    } finally {
+      setDeleteDialogOpen(false)
+      setDeleteTarget(null)
     }
   }
 
@@ -170,7 +198,9 @@ function RouteComponent() {
           size="sm"
           variant={'outline'}
           className="rounded-none flex-1 cursor-pointer hover:border-red-400 hover:border"
-          onClick={() => handleDelete(type, asset._id)}
+          onClick={() =>
+            handleDelete(type, asset._id, asset.project_name || '')
+          }
         >
           <Icons.Trash />
         </Button>
@@ -181,7 +211,7 @@ function RouteComponent() {
   return (
     <div className="min-h-screen">
       <header className="flex items-center justify-between p-6 bg-white">
-        <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Projects</h1>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -314,6 +344,36 @@ function RouteComponent() {
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you sure?</DialogTitle>
+            <DialogDescription>
+              {deleteTarget
+                ? `You are about to delete ${deleteTarget.name} (${deleteTarget.type}). This action cannot be undone.`
+                : 'This action cannot be undone.'}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex gap-2">
+            <Button
+              variant="outline"
+              className="rounded-none cursor-pointer"
+              onClick={() => setDeleteDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              className="rounded-none bg-red-600 hover:bg-red-700 cursor-pointer"
+              onClick={confirmDelete}
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
