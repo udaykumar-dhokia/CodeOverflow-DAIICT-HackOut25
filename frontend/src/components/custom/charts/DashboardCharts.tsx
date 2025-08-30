@@ -306,26 +306,26 @@ const DashboardCharts: React.FC<ChartProps> = ({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-6 text-center">
       <div>
         <h3 className="text-lg font-semibold mb-2">Total Budget by Asset</h3>
-        <svg ref={budgetChartRef} width={400} height={300}></svg>
+        <svg ref={budgetChartRef} width={400} height={400}></svg>
       </div>
 
       <div>
         <h3 className="text-lg font-semibold mb-2">Number of Projects</h3>
-        <svg ref={projectsChartRef} width={400} height={300}></svg>
+        <svg ref={projectsChartRef} width={400} height={400}></svg>
       </div>
 
       <div>
         <h3 className="text-lg font-semibold mb-2">
           Budget Share (Donut Chart)
         </h3>
-        <svg ref={pieChartRef} width={400} height={300}></svg>
+        <svg ref={pieChartRef} width={400} height={400}></svg>
       </div>
 
       <div>
         <h3 className="text-lg font-semibold mb-2">
           Budget + Capacity (Stacked Bar)
         </h3>
-        <svg ref={stackedChartRef} width={400} height={300}></svg>
+        <svg ref={stackedChartRef} width={400} height={400}></svg>
       </div>
     </div>
   )
