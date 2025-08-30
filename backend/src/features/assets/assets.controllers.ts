@@ -5,6 +5,7 @@ import Plant, { IPlant } from '../../features/assets/plants.model';
 import Storage, { StorageInterface } from '../../features/assets/storage.model'; 
 import HttpStatus from "../../utils/httpStatus";
 import { Types } from 'mongoose';
+import axios from 'axios';
 
 interface ProjectsResponse {
   distributionHubs: DistributionHubInterface[];
@@ -117,15 +118,31 @@ export const createPipeline = async (req: Request, res: Response) => {
         message: 'Pipeline with the same project name and developer ID already exists'
       });
     }
-    const newPipeline: PipelineInterface = await Pipeline.create({
+    const response = await axios.post('http://127.0.0.1:8000/ask', {
+      question: `What is the optimal location for a pipeline with the following parameters?
+      Project Name: ${project_name}
+      Budget: ${budget}
+      Capacity: ${capacity}
+      Length Estimate: ${length_estimate}
+      Route Preference: ${route_preference}
+      Developer ID: ${project_developer_id}
+      Location: ${location || []}`,
+      type: 'pipeline'
+    });
+    // console.log(response , ' response');
+    let newPipeline;
+    if(response.data.answer){
+     newPipeline = await Pipeline.create({
       project_name,
       budget,
       capacity,
       length_estimate,
       route_preference,
       project_developer_id,
+      report : response.data.answer,
       location: location || []
     });
+}
     return res.status(HttpStatus.CREATED).json({
       message: 'Pipeline created successfully',
       data: newPipeline
@@ -236,16 +253,34 @@ export const createDistributionHub = async (req: Request, res: Response) => {
         message: 'Distribution hub with the same project name and developer ID already exists'
       });
     }
-    const newHub: DistributionHubInterface = await DistributionHub.create({
-      project_name,
-      budget,
-      capacity,
-      service_radius,
-      proximity_preference,
-      land_requirement,
-      project_developer_id,
-      location: location || []
+    const response = await axios.post('http://127.0.0.1:8000/ask', {
+      question: `Where should we set up a distribution hub with these parameters?
+      Project Name: ${project_name}
+      Budget: ${budget}
+      Capacity: ${capacity}
+      Service Radius: ${service_radius}
+      Proximity Preference: ${proximity_preference}
+      Land Requirement: ${land_requirement}
+      Developer ID: ${project_developer_id}
+      Location: ${location || []}`,
+      type: 'distribution_hub'
     });
+
+    let newHub;
+    if (response.data.answer) {
+      newHub = await DistributionHub.create({
+        project_name,
+        budget,
+        capacity,
+        service_radius,
+        proximity_preference,
+        land_requirement,
+        project_developer_id,
+        report: response.data.answer,
+        location: location || []
+      });
+    }
+
     return res.status(HttpStatus.CREATED).json({
       message: 'Distribution hub created successfully',
       data: newHub
@@ -257,7 +292,6 @@ export const createDistributionHub = async (req: Request, res: Response) => {
     });
   }
 };
-
 export const updateDistributionHub = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -358,15 +392,32 @@ export const createPlant = async (req: Request, res: Response) => {
         message: 'Plant with the same project name and developer ID already exists'
       });
     }
-    const newPlant: IPlant = await Plant.create({
-      project_name,  
-      budget,
-      capacity,
-      preferred_source,
-      logistic_preference,
-      project_developer_id,
-      location: location || []
+  const response = await axios.post('http://127.0.0.1:8000/ask', {
+      question: `What is the optimal location for a hydrogen plant with these parameters?
+      Project Name: ${project_name}
+      Budget: ${budget}
+      Capacity: ${capacity}
+      Preferred Source: ${preferred_source}
+      Logistic Preference: ${logistic_preference}
+      Developer ID: ${project_developer_id}
+      Location: ${location || []}`,
+      type: 'plant'
     });
+
+    let newPlant;
+    if (response.data.answer) {
+      newPlant = await Plant.create({
+        project_name,
+        budget,
+        capacity,
+        preferred_source,
+        logistic_preference,
+        project_developer_id,
+        report: response.data.answer,
+        location: location || []
+      });
+    }
+
     return res.status(HttpStatus.CREATED).json({
       message: 'Plant created successfully',
       data: newPlant
@@ -485,15 +536,31 @@ export const createStorage = async (req: Request, res: Response) => {
         message: 'Storage with the same project name and developer ID already exists'
       });
     }
-    const newStorage: StorageInterface = await Storage.create({
-      project_name,  
-      budget,
-      capacity,
-      technology: technology || '',
-      proximity_preference,
-      project_developer_id,
-      location: location || []
+   const response = await axios.post('http://127.0.0.1:8000/ask', {
+      question: `Where should we establish a hydrogen storage facility with these parameters?
+      Project Name: ${project_name}
+      Budget: ${budget}
+      Capacity: ${capacity}
+      Technology: ${technology || 'N/A'}
+      Proximity Preference: ${proximity_preference}
+      Developer ID: ${project_developer_id}
+      Location: ${location || []}`,
+      type: 'storage'
     });
+
+    let newStorage;
+    if (response.data.answer) {
+      newStorage = await Storage.create({
+        project_name,  
+        budget,
+        capacity,
+        technology: technology || '',
+        proximity_preference,
+        project_developer_id,
+        report: response.data.answer,
+        location: location || []
+      });
+    }
 
     return res.status(HttpStatus.CREATED).json({
       message: 'Storage created successfully',
