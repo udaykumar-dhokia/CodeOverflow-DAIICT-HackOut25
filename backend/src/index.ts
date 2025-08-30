@@ -3,30 +3,32 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import http from "http";
+import cookieParser from "cookie-parser";
 import connectDB from "./config/db.config";
-import projectdeveloperauth from './features/auth/auth.routes'
-import windroute from './features/wind/wind.route'
-import solarroute from './features/solar/solar.route'
+import projectdeveloperauth from "./features/auth/auth.routes";
+import windroute from "./features/wind/wind.route";
+import solarroute from "./features/solar/solar.route";
+
 const app = express();
 const server = http.createServer(app);
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // local frontend
-    ],
+    origin: ["http://localhost:5173"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // allow cookies/authorization headers
-  })
+    credentials: true,
+  })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/auth', projectdeveloperauth);
-app.use('/api/wind', windroute);
-app.use('/api/solar', solarroute);
+app.use(cookieParser());
+
+app.use("/api/auth", projectdeveloperauth);
+app.use("/api/wind", windroute);
+app.use("/api/solar", solarroute);
 app.get("/", (req, res) => {
   return res.status(200).json({ message: "Server is up and running..." });
 });
 server.listen(3000, () => {
-  connectDB()
+  connectDB();
   console.log("Server is up and running...");
 });
