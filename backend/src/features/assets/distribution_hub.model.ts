@@ -3,11 +3,13 @@ import mongoose, { Document, Schema } from "mongoose"
 export interface DistributionHubInterface extends Document {
   _id: mongoose.Types.ObjectId
   budget: number
+  project_name: string,
   capacity: number
   service_radius: number
   proximity_preference: string
   land_requirement: number
   location: Array<string>
+  report: String,
   project_developer_id: mongoose.Types.ObjectId
   createdAt?: Date
   updatedAt?: Date
@@ -15,12 +17,14 @@ export interface DistributionHubInterface extends Document {
 
 const DistributionHubSchema: Schema<DistributionHubInterface> = new Schema(
   {
+    project_name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true },
     capacity: { type: Number, required: true },
     service_radius: { type: Number, required: true }, //  km
     proximity_preference: { type: String, required: true, trim: true }, // near pipeline, near customers
     location: { type: [String], required: false, default: [] },
     land_requirement: { type: Number, required: true }, //  sq.meters or hectares
+    report: { type: String, required: false, default: '' },
     project_developer_id: {
       type: Schema.Types.ObjectId,
       ref: "ProjectDeveloper",

@@ -2,18 +2,21 @@ import mongoose, { Document, Schema } from "mongoose"
 import { ProjectDeveloperInterface } from "../project_developers/project_developers.model"
 
 export interface StorageInterface extends Document {
-  budget: number
-  capacity: number
-  technology: string
-  proximity_preference: "plant" | "demand" | "port"
-  project_developer_id: ProjectDeveloperInterface["_id"]
-  location: Array<string>
-  createdAt?: Date
-  updatedAt?: Date
+  project_name: string;  
+  budget: number;
+  capacity: number;
+  technology: string;
+  proximity_preference: "plant" | "demand" | "port";
+  project_developer_id: ProjectDeveloperInterface["_id"];
+  location: Array<string>;
+  report: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const StorageSchema: Schema<StorageInterface> = new Schema(
   {
+    project_name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true },
     capacity: { type: Number, required: true },
     technology: { type: String, required: false, default:"" },
@@ -23,6 +26,7 @@ const StorageSchema: Schema<StorageInterface> = new Schema(
       required: true,
     },
     location: { type: [String], required: false, default: [] },
+    report: { type: String, required: false, default: '' },
     project_developer_id: {
       type: Schema.Types.ObjectId,
       ref: "ProjectDeveloper",

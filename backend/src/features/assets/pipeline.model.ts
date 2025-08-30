@@ -3,11 +3,13 @@ import mongoose, { Document, Schema } from "mongoose"
 export interface PipelineInterface extends Document {
   _id: mongoose.Types.ObjectId
   budget: number
+  project_name: string
   capacity: number
   length_estimate: number
   route_preference: string
   project_developer_id: mongoose.Types.ObjectId
   location: Array<string>
+  report: string
   createdAt?: Date
   updatedAt?: Date
 }
@@ -15,6 +17,7 @@ export interface PipelineInterface extends Document {
 const PipelineSchema: Schema<PipelineInterface> = new Schema(
   {
     budget: { type: Number, required: true },
+    project_name: { type: String, required: true, trim: true },
     capacity: { type: Number, required: true },
     length_estimate: { type: Number, required: true },
     route_preference: { type: String, required: true, trim: true },
@@ -24,6 +27,7 @@ const PipelineSchema: Schema<PipelineInterface> = new Schema(
       ref: "ProjectDeveloper",
       required: true,
     },
+    report: { type: String, required: false, default: '' },
   },
   { timestamps: true }
 )
