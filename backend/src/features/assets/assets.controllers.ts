@@ -118,7 +118,7 @@ export const createPipeline = async (req: Request, res: Response) => {
         message: 'Pipeline with the same project name and developer ID already exists'
       });
     }
-    const response = await axios.post('http://127.0.0.1:8000/ask', {
+    const response = await axios.post('https://rag-backend-m5ni.onrender.com/ask', {
       question: `What is the optimal location for a pipeline with the following parameters?
       Project Name: ${project_name}
       Budget: ${budget}
@@ -253,7 +253,7 @@ export const createDistributionHub = async (req: Request, res: Response) => {
         message: 'Distribution hub with the same project name and developer ID already exists'
       });
     }
-    const response = await axios.post('http://127.0.0.1:8000/ask', {
+    const response = await axios.post('https://rag-backend-m5ni.onrender.com/ask', {
       question: `Where should we set up a distribution hub with these parameters?
       Project Name: ${project_name}
       Budget: ${budget}
@@ -392,7 +392,7 @@ export const createPlant = async (req: Request, res: Response) => {
         message: 'Plant with the same project name and developer ID already exists'
       });
     }
-  const response = await axios.post('http://127.0.0.1:8000/ask', {
+  const response = await axios.post('https://rag-backend-m5ni.onrender.com/ask', {
       question: `What is the optimal location for a hydrogen plant with these parameters?
       Project Name: ${project_name}
       Budget: ${budget}
@@ -536,7 +536,7 @@ export const createStorage = async (req: Request, res: Response) => {
         message: 'Storage with the same project name and developer ID already exists'
       });
     }
-   const response = await axios.post('http://127.0.0.1:8000/ask', {
+   const response = await axios.post('https://rag-backend-m5ni.onrender.com/ask', {
       question: `Where should we establish a hydrogen storage facility with these parameters?
       Project Name: ${project_name}
       Budget: ${budget}

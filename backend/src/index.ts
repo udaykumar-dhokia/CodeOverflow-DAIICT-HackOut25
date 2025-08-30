@@ -14,7 +14,7 @@ const app = express();
 const server = http.createServer(app);
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://h2grid.vercel.app"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
