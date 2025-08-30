@@ -1,19 +1,12 @@
 import HttpStatus from "../../../utils/httpStatus";
-import userDao, { UserType } from "../company/user.dao"; 
+import userDao, { UserType } from "../company/user.dao";
 import dotenv from "dotenv";
-import { CookieOptions } from "express";
 import { comparePassword, hashPassword } from "../../../utils/hash";
 import { setToken } from "../../../utils/jwt";
+import { jwtCookieOptions } from "../../../utils/cookie";
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
-
-const cookieOptions: CookieOptions = {
-  httpOnly: true,
-  secure: isProduction,
-  sameSite: isProduction ? "none" : "lax",
-  maxAge: 24 * 60 * 60 * 1000,
-};
 
 const AuthController2 = {
   login: async (req, res) => {
@@ -32,7 +25,7 @@ const AuthController2 = {
           .json({ message: "Invalid credentials." });
       }
       const token = setToken(company._id.toString());
-      res.cookie("token", token, cookieOptions);
+      res.cookie("token", token, jwtCookieOptions);
       return res
         .status(HttpStatus.OK)
         .json({ message: "Login successful.", company, token });
@@ -105,7 +98,7 @@ const AuthController2 = {
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: "Internal Server Error." });
       }
-      res.cookie("token", token, cookieOptions);
+      res.cookie("token", token, jwtCookieOptions);
       return res
         .status(HttpStatus.CREATED)
         .json({ message: "Registration successful", company });
@@ -130,6 +123,15 @@ const AuthController2 = {
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ message: "Failed to log out." });
     }
+  },
+  exists: (req, res) => {
+    const user = req.user;
+    if (!user) {
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({ message: "User not found." });
+    }
+    return res.status(HttpStatus.OK).json({ user });
   },
 };
 

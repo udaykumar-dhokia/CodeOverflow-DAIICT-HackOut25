@@ -6,6 +6,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain.chains import LLMChain
+from typing import Optional
 import os
 from dotenv import load_dotenv
 
