@@ -6,6 +6,12 @@ import Storage, { StorageInterface } from '../../features/assets/storage.model';
 import HttpStatus from "../../utils/httpStatus";
 import { Types } from 'mongoose';
 
+interface ProjectsResponse {
+  distributionHubs: DistributionHubInterface[];
+  pipelines: PipelineInterface[];
+  plants: IPlant[];
+  storage: StorageInterface[];
+}
 interface CreateDistributionHubInput {
   budget: number;
   capacity: number;
@@ -441,6 +447,39 @@ export const updateStorage = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       message: 'Error updating storage',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+export const getAllProjectsByDeveloper = async (req: Request, res: Response) => {
+  try {
+    const { project_developer_id  } = req.params;
+    console.log('Fetching projects for developer:', project_developer_id);
+    if (!Types.ObjectId.isValid(project_developer_id)) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: 'Invalid project_developer_id format'
+      });
+    }
+    const [distributionHubs, pipelines, plants, storage] = await Promise.all([
+      DistributionHub.find({ project_developer_id }).lean(),
+      Pipeline.find({ project_developer_id }).lean(),
+      Plant.find({ project_developer_id }).lean(),
+      Storage.find({ project_developer_id }).lean()
+    ]);
+    const response: ProjectsResponse = {
+      distributionHubs,
+      pipelines,
+      plants,
+      storage
+    };
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Projects fetched successfully',
+      data: response
+    });
+  } catch (error) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      message: 'Error fetching projects',
       error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
