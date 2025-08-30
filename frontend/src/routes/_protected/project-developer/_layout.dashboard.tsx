@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Icons } from '@/assets/icons'
 import { Button } from '@/components/ui/button'
 import { type RootState } from '@/store/store'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useSelector } from 'react-redux'
 import {
   DropdownMenu,
@@ -47,6 +47,16 @@ function RouteComponent() {
     storage.reduce((a, s) => a + (s.budget || 0), 0) +
     pipelines.reduce((a, pl) => a + (pl.budget || 0), 0) +
     distributionHubs.reduce((a, d) => a + (d.budget || 0), 0)
+
+  // Collect all projects in one array for recent list
+  const allProjects = [
+    ...plants.map((p) => ({ ...p, type: 'Plant' })),
+    ...storage.map((s) => ({ ...s, type: 'Storage' })),
+    ...pipelines.map((pl) => ({ ...pl, type: 'Pipeline' })),
+    ...distributionHubs.map((d) => ({ ...d, type: 'Distribution Hub' })),
+  ]
+
+  const recentProjects = allProjects.slice(-5).reverse()
 
   return (
     <div className="min-h-screen">
@@ -109,18 +119,66 @@ function RouteComponent() {
             <Icons.Wallet /> Budget
           </h2>
           <p className="mt-2 text-3xl font-bold text-gray-800">
-            <span className="text-primary">$ </span>
+            <span className="text-primary">₹ </span>
             {totalBudget.toLocaleString()}
           </p>
         </div>
       </div>
 
-      <DashboardCharts
-        plants={plants}
-        storage={storage}
-        pipelines={pipelines}
-        distributionHubs={distributionHubs}
-      />
+      {/* Main content: Charts + Recent Projects */}
+      <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Charts take 2/3 */}
+        <div className="lg:col-span-2">
+          <DashboardCharts
+            plants={plants}
+            storage={storage}
+            pipelines={pipelines}
+            distributionHubs={distributionHubs}
+          />
+        </div>
+
+        {/* Recent Projects */}
+        <div className="bg-white rounded-none shadow p-6">
+          <div className="flex justify-between">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">
+              Recent Projects
+            </h2>
+            <Link to="/project-developer/projects">View All</Link>
+          </div>
+          <ul className="space-y-4">
+            {recentProjects.length > 0 ? (
+              recentProjects.map((project) => (
+                <li
+                  key={project._id}
+                  className="flex justify-between items-center border-b pb-2"
+                >
+                  <div>
+                    <p className="font-medium text-gray-800">
+                      {project.project_name}
+                    </p>
+                    <p className="text-sm text-gray-500">{project.type}</p>
+                  </div>
+                  <div className="text-right">
+                    {project.budget ? (
+                      <p className="text-sm font-semibold text-primary">
+                        ${project.budget.toLocaleString()}
+                      </p>
+                    ) : project.capacity ? (
+                      <p className="text-sm text-gray-600">
+                        {project.capacity} MW
+                      </p>
+                    ) : (
+                      <p className="text-sm text-gray-400">—</p>
+                    )}
+                  </div>
+                </li>
+              ))
+            ) : (
+              <p className="text-gray-500 text-sm">No recent projects</p>
+            )}
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }

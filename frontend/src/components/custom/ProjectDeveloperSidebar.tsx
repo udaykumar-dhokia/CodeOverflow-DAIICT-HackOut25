@@ -1,7 +1,6 @@
 import {
   BuildingIcon,
   ChevronUp,
-  Inbox,
   LayoutDashboard,
   MapPinPlus,
   MessageCircle,
@@ -55,7 +54,7 @@ const items = [
   },
   {
     title: 'Profile',
-    url: '#',
+    url: '/project-developer/profile',
     icon: User,
   },
 ]

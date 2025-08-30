@@ -12,10 +12,12 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as ProtectedProjectDeveloperLayoutRouteImport } from './routes/_protected/project-developer/_layout'
 import { Route as PublicAuthProjectDeveloperLayoutRouteImport } from './routes/_public/auth/project-developer/_layout'
 import { Route as PublicAuthCompanyLayoutRouteImport } from './routes/_public/auth/company/_layout'
 import { Route as ProtectedProjectDeveloperLayoutProjectsRouteImport } from './routes/_protected/project-developer/_layout.projects'
+import { Route as ProtectedProjectDeveloperLayoutProfileRouteImport } from './routes/_protected/project-developer/_layout.profile'
 import { Route as ProtectedProjectDeveloperLayoutOpenmapRouteImport } from './routes/_protected/project-developer/_layout.openmap'
 import { Route as ProtectedProjectDeveloperLayoutDashboardRouteImport } from './routes/_protected/project-developer/_layout.dashboard'
 import { Route as PublicAuthProjectDeveloperLayoutRegisterRouteImport } from './routes/_public/auth/project-developer/_layout.register'
@@ -40,6 +42,11 @@ const ProtectedProjectDeveloperRoute =
 const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/_public/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/_public/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicAuthProjectDeveloperRoute =
@@ -71,6 +78,12 @@ const ProtectedProjectDeveloperLayoutProjectsRoute =
   ProtectedProjectDeveloperLayoutProjectsRouteImport.update({
     id: '/projects',
     path: '/projects',
+    getParentRoute: () => ProtectedProjectDeveloperLayoutRoute,
+  } as any)
+const ProtectedProjectDeveloperLayoutProfileRoute =
+  ProtectedProjectDeveloperLayoutProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
     getParentRoute: () => ProtectedProjectDeveloperLayoutRoute,
   } as any)
 const ProtectedProjectDeveloperLayoutOpenmapRoute =
@@ -111,10 +124,12 @@ const PublicAuthCompanyLayoutLoginRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/contact': typeof PublicContactRoute
   '/': typeof PublicIndexRoute
   '/project-developer': typeof ProtectedProjectDeveloperLayoutRouteWithChildren
   '/project-developer/dashboard': typeof ProtectedProjectDeveloperLayoutDashboardRoute
   '/project-developer/openmap': typeof ProtectedProjectDeveloperLayoutOpenmapRoute
+  '/project-developer/profile': typeof ProtectedProjectDeveloperLayoutProfileRoute
   '/project-developer/projects': typeof ProtectedProjectDeveloperLayoutProjectsRoute
   '/auth/company': typeof PublicAuthCompanyLayoutRouteWithChildren
   '/auth/project-developer': typeof PublicAuthProjectDeveloperLayoutRouteWithChildren
@@ -124,10 +139,12 @@ export interface FileRoutesByFullPath {
   '/auth/project-developer/register': typeof PublicAuthProjectDeveloperLayoutRegisterRoute
 }
 export interface FileRoutesByTo {
+  '/contact': typeof PublicContactRoute
   '/': typeof PublicIndexRoute
   '/project-developer': typeof ProtectedProjectDeveloperLayoutRouteWithChildren
   '/project-developer/dashboard': typeof ProtectedProjectDeveloperLayoutDashboardRoute
   '/project-developer/openmap': typeof ProtectedProjectDeveloperLayoutOpenmapRoute
+  '/project-developer/profile': typeof ProtectedProjectDeveloperLayoutProfileRoute
   '/project-developer/projects': typeof ProtectedProjectDeveloperLayoutProjectsRoute
   '/auth/company': typeof PublicAuthCompanyLayoutRouteWithChildren
   '/auth/project-developer': typeof PublicAuthProjectDeveloperLayoutRouteWithChildren
@@ -138,11 +155,13 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_public/contact': typeof PublicContactRoute
   '/_public/': typeof PublicIndexRoute
   '/_protected/project-developer': typeof ProtectedProjectDeveloperRouteWithChildren
   '/_protected/project-developer/_layout': typeof ProtectedProjectDeveloperLayoutRouteWithChildren
   '/_protected/project-developer/_layout/dashboard': typeof ProtectedProjectDeveloperLayoutDashboardRoute
   '/_protected/project-developer/_layout/openmap': typeof ProtectedProjectDeveloperLayoutOpenmapRoute
+  '/_protected/project-developer/_layout/profile': typeof ProtectedProjectDeveloperLayoutProfileRoute
   '/_protected/project-developer/_layout/projects': typeof ProtectedProjectDeveloperLayoutProjectsRoute
   '/_public/auth/company': typeof PublicAuthCompanyRouteWithChildren
   '/_public/auth/company/_layout': typeof PublicAuthCompanyLayoutRouteWithChildren
@@ -156,10 +175,12 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/contact'
     | '/'
     | '/project-developer'
     | '/project-developer/dashboard'
     | '/project-developer/openmap'
+    | '/project-developer/profile'
     | '/project-developer/projects'
     | '/auth/company'
     | '/auth/project-developer'
@@ -169,10 +190,12 @@ export interface FileRouteTypes {
     | '/auth/project-developer/register'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/contact'
     | '/'
     | '/project-developer'
     | '/project-developer/dashboard'
     | '/project-developer/openmap'
+    | '/project-developer/profile'
     | '/project-developer/projects'
     | '/auth/company'
     | '/auth/project-developer'
@@ -182,11 +205,13 @@ export interface FileRouteTypes {
     | '/auth/project-developer/register'
   id:
     | '__root__'
+    | '/_public/contact'
     | '/_public/'
     | '/_protected/project-developer'
     | '/_protected/project-developer/_layout'
     | '/_protected/project-developer/_layout/dashboard'
     | '/_protected/project-developer/_layout/openmap'
+    | '/_protected/project-developer/_layout/profile'
     | '/_protected/project-developer/_layout/projects'
     | '/_public/auth/company'
     | '/_public/auth/company/_layout'
@@ -199,6 +224,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  PublicContactRoute: typeof PublicContactRoute
   PublicIndexRoute: typeof PublicIndexRoute
   ProtectedProjectDeveloperRoute: typeof ProtectedProjectDeveloperRouteWithChildren
   PublicAuthCompanyRoute: typeof PublicAuthCompanyRouteWithChildren
@@ -219,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/auth/project-developer': {
@@ -261,6 +294,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/project-developer/projects'
       preLoaderRoute: typeof ProtectedProjectDeveloperLayoutProjectsRouteImport
+      parentRoute: typeof ProtectedProjectDeveloperLayoutRoute
+    }
+    '/_protected/project-developer/_layout/profile': {
+      id: '/_protected/project-developer/_layout/profile'
+      path: '/profile'
+      fullPath: '/project-developer/profile'
+      preLoaderRoute: typeof ProtectedProjectDeveloperLayoutProfileRouteImport
       parentRoute: typeof ProtectedProjectDeveloperLayoutRoute
     }
     '/_protected/project-developer/_layout/openmap': {
@@ -311,6 +351,7 @@ declare module '@tanstack/react-router' {
 interface ProtectedProjectDeveloperLayoutRouteChildren {
   ProtectedProjectDeveloperLayoutDashboardRoute: typeof ProtectedProjectDeveloperLayoutDashboardRoute
   ProtectedProjectDeveloperLayoutOpenmapRoute: typeof ProtectedProjectDeveloperLayoutOpenmapRoute
+  ProtectedProjectDeveloperLayoutProfileRoute: typeof ProtectedProjectDeveloperLayoutProfileRoute
   ProtectedProjectDeveloperLayoutProjectsRoute: typeof ProtectedProjectDeveloperLayoutProjectsRoute
 }
 
@@ -320,6 +361,8 @@ const ProtectedProjectDeveloperLayoutRouteChildren: ProtectedProjectDeveloperLay
       ProtectedProjectDeveloperLayoutDashboardRoute,
     ProtectedProjectDeveloperLayoutOpenmapRoute:
       ProtectedProjectDeveloperLayoutOpenmapRoute,
+    ProtectedProjectDeveloperLayoutProfileRoute:
+      ProtectedProjectDeveloperLayoutProfileRoute,
     ProtectedProjectDeveloperLayoutProjectsRoute:
       ProtectedProjectDeveloperLayoutProjectsRoute,
   }
@@ -405,6 +448,7 @@ const PublicAuthProjectDeveloperRouteWithChildren =
   )
 
 const rootRouteChildren: RootRouteChildren = {
+  PublicContactRoute: PublicContactRoute,
   PublicIndexRoute: PublicIndexRoute,
   ProtectedProjectDeveloperRoute: ProtectedProjectDeveloperRouteWithChildren,
   PublicAuthCompanyRoute: PublicAuthCompanyRouteWithChildren,

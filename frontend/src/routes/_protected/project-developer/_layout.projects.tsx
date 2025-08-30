@@ -26,6 +26,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog'
+import { persistProjectsAssetsData } from '@/utils/auth'
 
 export const Route = createFileRoute(
   '/_protected/project-developer/_layout/projects',
@@ -37,6 +38,7 @@ function RouteComponent() {
   const assetsData = useSelector(
     (state: RootState) => state.projectDeveloperAssets,
   )
+  const { user } = useSelector((state: RootState) => state.projectDeveloper)
 
   const [isPlantDialogOpen, setIsPlantDialogOpen] = useState(false)
   const [isStorageDialogOpen, setIsStorageDialogOpen] = useState(false)
@@ -45,8 +47,8 @@ function RouteComponent() {
     useState(false)
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [sortKey, __] = useState<'budget' | 'capacity' | ''>('')
-  const [sortOrder, _] = useState<'asc' | 'desc'>('asc')
+  const [sortKey, setSortKey] = useState<'budget' | 'capacity' | ''>('')
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<{
@@ -263,8 +265,65 @@ function RouteComponent() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="flex items-center gap-2">
-          <Icons.Sort />
-          <Icons.Refresh />
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="rounded-none flex items-center gap-2"
+                >
+                  <Icons.Sort /> Sort
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setSortKey('budget')
+                    setSortOrder('asc')
+                  }}
+                >
+                  Budget (Low → High)
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setSortKey('budget')
+                    setSortOrder('desc')
+                  }}
+                >
+                  Budget (High → Low)
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setSortKey('capacity')
+                    setSortOrder('asc')
+                  }}
+                >
+                  Capacity (Low → High)
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setSortKey('capacity')
+                    setSortOrder('desc')
+                  }}
+                >
+                  Capacity (High → Low)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Manual refresh */}
+            <Button
+              variant="outline"
+              className="rounded-none flex items-center gap-2"
+              onClick={async () => {
+                if (!user?._id) return
+                const assetData = await persistProjectsAssetsData(user._id)
+                store.dispatch(setProjects(assetData))
+              }}
+            >
+              <Icons.Refresh /> Reload
+            </Button>
+          </div>
         </div>
       </div>
 

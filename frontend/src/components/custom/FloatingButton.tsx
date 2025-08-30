@@ -11,6 +11,7 @@ import PlantDialog from './dailogs/CreatePlantDailog'
 import StorageDialog from './dailogs/CreateStorageDailog'
 import DistributionHubDialog from './dailogs/CreateDistributionDailog'
 import PipelineDialog from './dailogs/CreatePipelineDailog'
+import { Plus } from 'lucide-react'
 
 const FloatingButton = () => {
   const [isPlantDialogOpen, setIsPlantDialogOpen] = useState(false)
@@ -24,7 +25,7 @@ const FloatingButton = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="bg-primary hover:bg-primary/80 cursor-pointer flex items-center justify-center w-14 h-14 p-0">
-            <Icons.Plus />
+            <Plus />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent side="top" align="end" className="w-56">

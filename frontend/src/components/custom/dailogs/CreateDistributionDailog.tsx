@@ -111,7 +111,7 @@ export default function DistributionHubDialog({
           </div>
 
           <div className="flex flex-col space-y-1">
-            <Label htmlFor="budget">Budget ($)</Label>
+            <Label htmlFor="budget">Budget (₹)</Label>
             <Input
               id="budget"
               type="number"
