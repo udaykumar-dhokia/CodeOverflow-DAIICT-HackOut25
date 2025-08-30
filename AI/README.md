@@ -17,7 +17,7 @@ This module is part of the AI Branch and provide  a document-based chatbot that 
 
 ## Architecture-
 
-<img src="demo/1.png" />
+<img src="1.png" />
 
 ## Setup(Feature Only)-
 
