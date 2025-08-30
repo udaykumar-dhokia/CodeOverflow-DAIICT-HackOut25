@@ -1,4 +1,4 @@
-#H<sub>2</sub> AI
+
 
 ## Hydrogen Docs Q&A Bot 
 
