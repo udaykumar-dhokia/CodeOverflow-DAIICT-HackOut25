@@ -39,7 +39,6 @@ const Hero = () => {
 
   return (
     <section className="flex flex-col lg:flex-row items-center justify-between min-h-screen p-8 gap-8 bg-white">
-      {/* Left side → Map */}
       <div className="flex-1 w-full h-[400px] lg:h-[800px] rounded-none overflow-hidden shadow-lg">
         <MapContainer
           center={[20.5937, 78.9629]}
@@ -89,19 +88,10 @@ const Hero = () => {
       </div>
 
       <div className="flex-1 text-center lg:text-left space-y-6">
-        <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
-          Build the Future of <span className="text-primary">Hydrogen</span>
-        </h1>
-        <p className="text-gray-600 text-xl leading-relaxed">
-          Visualize assets, optimize investments, and accelerate the hydrogen
-          ecosystem with our interactive mapping and analytics platform.
-        </p>
-
-        {/* Layer toggle buttons */}
         <div className="flex gap-4 justify-center lg:justify-start">
           <button
             onClick={() => setActiveLayer('solar')}
-            className={`px-4 py-2 rounded-none font-medium ${
+            className={`px-4 py-2 rounded-none font-medium cursor-pointer ${
               activeLayer === 'solar'
                 ? 'bg-primary text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -111,7 +101,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => setActiveLayer('wind')}
-            className={`px-4 py-2 rounded-none font-medium ${
+            className={`px-4 py-2 rounded-none font-medium cursor-pointer ${
               activeLayer === 'wind'
                 ? 'bg-primary text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -121,7 +111,6 @@ const Hero = () => {
           </button>
         </div>
 
-        {/* Stats / Summary */}
         <div className="mt-4 bg-gray-50 p-4 rounded-none shadow-inner space-y-2">
           {activeLayer === 'solar' && (
             <>

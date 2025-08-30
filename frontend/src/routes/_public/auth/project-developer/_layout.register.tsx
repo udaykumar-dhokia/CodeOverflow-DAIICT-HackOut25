@@ -59,86 +59,107 @@ function RouteComponent() {
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-none bg-white p-8 shadow-md">
-        <h2 className="mb-2 text-2xl font-semibold text-gray-800">Register</h2>
-        <p className="mb-6">
-          Register to access the hydrogen ecosystem with our interactive mapping
-          and analytics platform.
-        </p>
-
-        <form className="space-y-5" onSubmit={handleSubmit}>
-          <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
-            <Input
-              id="name"
-              type="text"
-              placeholder="John Doe"
-              required
-              className="rounded-none"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="john@example.com"
-              required
-              className="rounded-none"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              required
-              className="rounded-none"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              placeholder="••••••••"
-              required
-              className="rounded-none"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-none bg-primary hover:bg-primary/90"
-          >
-            {loading ? 'Registering...' : 'Continue'}
-          </Button>
-
-          <p className="text-center">
-            Already a member?{' '}
-            <Link
-              to="/auth/project-developer/login"
-              className="cursor-pointer text-primary"
-            >
-              Login
-            </Link>
+    <div className="flex h-screen w-full">
+      {/* Left side form */}
+      <div className="flex flex-1 justify-center items-center p-8">
+        <div className="w-full max-w-md rounded-none bg-white p-8 shadow-md">
+          <h2 className="mb-2 text-2xl font-semibold text-gray-800">
+            Register
+          </h2>
+          <p className="mb-6 text-gray-600">
+            Register to access the hydrogen ecosystem with our interactive
+            mapping and analytics platform.
           </p>
-        </form>
+
+          <form className="space-y-5" onSubmit={handleSubmit}>
+            <div className="space-y-2">
+              <Label htmlFor="name">Full Name</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                required
+                className="rounded-none"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                required
+                className="rounded-none"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                required
+                className="rounded-none"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                placeholder="••••••••"
+                required
+                className="rounded-none"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-none bg-primary hover:bg-primary/90 transition cursor-pointer"
+            >
+              {loading ? 'Registering...' : 'Continue'}
+            </Button>
+
+            <p className="text-center mt-2">
+              Already a member?{' '}
+              <Link
+                to="/auth/project-developer/login"
+                className="cursor-pointer text-primary"
+              >
+                Login
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
+
+      {/* Right side image */}
+      <div
+        className="hidden lg:flex flex-1 bg-cover bg-center"
+        style={{ backgroundImage: "url('/back.jpeg')" }}
+      >
+        <div className="flex flex-col justify-center items-center bg-black/30 w-full h-full">
+          <h1 className="text-4xl font-bold text-white">Join the Future!</h1>
+          <p className="text-white mt-2 text-center px-8">
+            Start building and exploring the hydrogen ecosystem with interactive
+            mapping and analytics.
+          </p>
+        </div>
       </div>
     </div>
   )
 }
+
+export default RouteComponent

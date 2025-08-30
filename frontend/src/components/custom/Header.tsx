@@ -1,5 +1,6 @@
 import { Icons } from '@/assets/icons'
 import { Link } from '@tanstack/react-router'
+import back from '/back.jpeg'
 
 const links = [
   { name: 'Home', route: '/' },
@@ -16,8 +17,9 @@ export default function Header() {
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
-              <Link to="/" className="block text-primary">
+              <Link to="/" className="text-primary flex">
                 <span className="sr-only">Home</span>
+                <img src={back} alt="" className="w-15" />
                 <h1 className="text-4xl font-bold">
                   H<sub>2</sub>Grid
                 </h1>
