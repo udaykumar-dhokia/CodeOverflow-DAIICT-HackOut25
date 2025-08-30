@@ -12,7 +12,7 @@ import {
 } from '../ui/dialog'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import type { RootState } from '@/store/store'
+import { store, type RootState } from '@/store/store'
 import {
   Select,
   SelectContent,
@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { axiosInstance } from '@/api/axiosInstance'
+import { addDistributionHub } from '@/store/slices/assets.slice'
 
 interface DistributionHubData {
   budget: number
@@ -28,6 +29,7 @@ interface DistributionHubData {
   service_radius: number
   proximity_preference: string
   land_requirement: number
+  project_name: string
 }
 
 interface DistributionHubDialogProps {
@@ -41,6 +43,7 @@ const defaultHubData: DistributionHubData = {
   service_radius: 60,
   proximity_preference: 'near pipeline',
   land_requirement: 2000,
+  project_name: 'Finolex',
 }
 
 export default function DistributionHubDialog({
@@ -73,6 +76,8 @@ export default function DistributionHubDialog({
         payload,
       )
       console.log('Response:', res.data)
+      const data = await res.data
+      store.dispatch(addDistributionHub(data))
       toast.success('Distribution Hub data uploaded successfully!')
       onOpenChange(false)
     } catch (err: any) {
@@ -94,6 +99,17 @@ export default function DistributionHubDialog({
         </DialogHeader>
 
         <div className="space-y-4 mt-4">
+          <div className="flex flex-col space-y-1">
+            <Label htmlFor="project_name">Project Name</Label>
+            <Input
+              id="project_name"
+              type="text"
+              value={formData.project_name}
+              onChange={(e) => handleChange('project_name', e.target.value)}
+              className="rounded-none"
+            />
+          </div>
+
           <div className="flex flex-col space-y-1">
             <Label htmlFor="budget">Budget ($)</Label>
             <Input

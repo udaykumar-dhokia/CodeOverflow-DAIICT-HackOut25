@@ -20,7 +20,8 @@ import {
 } from '@/components/ui/select'
 import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
-import type { RootState } from '@/store/store'
+import { store, type RootState } from '@/store/store'
+import { addStorage } from '@/store/slices/assets.slice'
 
 interface StorageData {
   budget: number
@@ -28,6 +29,7 @@ interface StorageData {
   technology: string
   proximity_preference: string
   location: string[]
+  project_name: string
 }
 
 interface StorageDialogProps {
@@ -40,7 +42,8 @@ const defaultStorageData: StorageData = {
   capacity: 500,
   technology: 'battery',
   proximity_preference: 'plant',
-  location: ['Nevada', 'USA'],
+  location: [],
+  project_name: 'Finolex',
 }
 
 export default function StorageDialog({
@@ -72,6 +75,7 @@ export default function StorageDialog({
         '/assets/upload-data/storage',
         payload,
       )
+      store.dispatch(addStorage(res.data))
       console.log('Response:', res.data)
       toast.success('Storage data uploaded successfully!')
       onOpenChange(false)
@@ -96,6 +100,16 @@ export default function StorageDialog({
         </DialogHeader>
 
         <div className="space-y-4 mt-4">
+          <div className="flex flex-col space-y-1">
+            <Label htmlFor="project_name">Project Name</Label>
+            <Input
+              id="project_name"
+              type="text"
+              value={formData.project_name}
+              onChange={(e) => handleChange('project_name', e.target.value)}
+              className="rounded-none"
+            />
+          </div>
           <div className="flex flex-col space-y-1">
             <Label htmlFor="budget">Budget ($)</Label>
             <Input

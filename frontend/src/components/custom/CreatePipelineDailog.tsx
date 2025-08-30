@@ -13,7 +13,8 @@ import {
 } from '../ui/dialog'
 import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
-import type { RootState } from '@/store/store'
+import { store, type RootState } from '@/store/store'
+import { addPipeline, type Pipeline } from '@/store/slices/assets.slice'
 
 interface PipelineData {
   budget: number
@@ -22,6 +23,7 @@ interface PipelineData {
   route_preference: string
   project_developer_id?: string
   location: string[]
+  project_name: string
 }
 
 interface PipelineDialogProps {
@@ -35,7 +37,8 @@ const defaultPipelineData = {
   length_estimate: 150,
   route_preference: 'coastal',
   project_developer_id: '',
-  location: ['Texas', 'USA'],
+  location: [],
+  project_name: 'Finolex',
 }
 
 export default function PipelineDialog({
@@ -70,6 +73,8 @@ export default function PipelineDialog({
         formData,
       )
       toast.success(res.data.message || 'Pipeline uploaded successfully!')
+      const newPipeline: Pipeline = res.data.pipeline || res.data
+      store.dispatch(addPipeline(newPipeline))
       onOpenChange(false)
     } catch (err: any) {
       console.error(err)
@@ -90,6 +95,17 @@ export default function PipelineDialog({
         </DialogHeader>
 
         <div className="space-y-4 mt-4">
+          <div className="flex flex-col space-y-1">
+            <Label htmlFor="budget">Project Name</Label>
+            <Input
+              id="project_name"
+              name="project_name"
+              type="text"
+              value={formData.project_name}
+              onChange={handleChange}
+              className="rounded-none"
+            />
+          </div>
           <div className="flex flex-col space-y-1">
             <Label htmlFor="budget">Budget ($)</Label>
             <Input

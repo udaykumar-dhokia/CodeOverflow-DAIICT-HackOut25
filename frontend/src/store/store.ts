@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import projectDeveloperReducer from './slices/project-developer.slice'
+import projectDeveloperAssetsReducer from './slices/assets.slice'
 
 export const store = configureStore({
   reducer: {
     projectDeveloper: projectDeveloperReducer,
+    projectDeveloperAssets: projectDeveloperAssetsReducer,
   },
 })
 

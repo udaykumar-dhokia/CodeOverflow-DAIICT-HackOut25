@@ -20,13 +20,15 @@ import {
 } from '@/components/ui/select'
 import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
-import type { RootState } from '@/store/store'
+import { store, type RootState } from '@/store/store'
+import { addPlant } from '@/store/slices/assets.slice'
 
 interface PlantData {
   budget: number
   capacity: number
   preferred_source: string
   logistic_preference: string
+  project_name: string
 }
 
 interface PlantDialogProps {
@@ -39,6 +41,7 @@ const defaultPlantData: PlantData = {
   capacity: 2000,
   preferred_source: 'solar',
   logistic_preference: 'port',
+  project_name: 'Finolex',
 }
 
 export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
@@ -70,6 +73,8 @@ export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
         payload,
       )
       console.log('Response:', res.data)
+      const planData = await res.data
+      store.dispatch(addPlant(planData))
       toast.success('Plant data uploaded successfully!')
       onOpenChange(false)
     } catch (err: any) {
@@ -91,6 +96,16 @@ export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
         </DialogHeader>
 
         <div className="space-y-4 mt-4">
+          <div className="flex flex-col space-y-1">
+            <Label htmlFor="project_name">Project Name</Label>
+            <Input
+              id="project_name"
+              type="text"
+              value={formData.project_name}
+              onChange={(e) => handleChange('project_name', e.target.value)}
+              className="rounded-none"
+            />
+          </div>
           <div className="flex flex-col space-y-1">
             <Label htmlFor="budget">Budget ($)</Label>
             <Input

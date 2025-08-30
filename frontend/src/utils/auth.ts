@@ -8,3 +8,15 @@ export const persistProjectDeveloperData = async () => {
     return null
   }
 }
+
+export const persistProjectsAssetsData = async (projectDeveloperId: string) => {
+  try {
+    const res = await axiosInstance.get(
+      `/assets/get-all-projects-developer/${projectDeveloperId}`,
+    )
+    return res?.data?.data || null
+  } catch (err) {
+    console.error('Error fetching projects:', err)
+    return null
+  }
+}
