@@ -22,7 +22,7 @@ function RouteComponent() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-white ">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md">
+      <div className="w-full max-w-md rounded-none bg-white p-8 shadow-md">
         <h2 className="mb-2 text-2xl font-semibold text-gray-800">Login</h2>
         <p className="mb-6">
           Login to access hydrogen ecosystem with our interactive mapping and
@@ -37,7 +37,7 @@ function RouteComponent() {
               type="email"
               placeholder="john@example.com"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -50,7 +50,7 @@ function RouteComponent() {
               type="password"
               placeholder="••••••••"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -58,7 +58,7 @@ function RouteComponent() {
 
           <Button
             type="submit"
-            className="w-full rounded-xl bg-primary hover:bg-primary"
+            className="w-full rounded-none bg-primary hover:bg-primary"
           >
             Continue
           </Button>

@@ -46,7 +46,7 @@ export default function Header() {
             <div className="flex items-center gap-4">
               <div className="hidden sm:flex">
                 <a
-                  className="rounded-xl bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary"
+                  className="rounded-none bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary"
                   href="#"
                 >
                   Login
@@ -54,7 +54,7 @@ export default function Header() {
               </div>
               <div className="sm:flex sm:gap-4">
                 <Link
-                  className="flex items-center rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-sm"
+                  className="flex items-center rounded-none bg-primary px-5 py-2.5 text-sm font-medium text-white shadow-sm"
                   to="/"
                 >
                   <Icons.Plus /> Create New Project

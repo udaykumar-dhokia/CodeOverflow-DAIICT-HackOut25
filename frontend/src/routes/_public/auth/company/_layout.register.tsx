@@ -56,7 +56,7 @@ function RouteComponent() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <div className="w-full max-w-md rounded-none bg-white p-8 shadow-md">
         <h2 className="mb-2 text-2xl font-semibold text-gray-800">Register</h2>
         <p className="mb-6">
           Register to access hydrogen ecosystem with our interactive mapping and
@@ -191,7 +191,7 @@ function RouteComponent() {
               <Button
                 type="button"
                 variant="outline"
-                className="rounded-xl"
+                className="rounded-none"
                 onClick={prevStep}
               >
                 Back
@@ -201,7 +201,7 @@ function RouteComponent() {
             {step < totalSteps ? (
               <Button
                 type="button"
-                className="ml-auto rounded-xl bg-primary hover:bg-primary"
+                className="ml-auto rounded-none bg-primary hover:bg-primary"
                 onClick={nextStep}
               >
                 Next
@@ -209,7 +209,7 @@ function RouteComponent() {
             ) : (
               <Button
                 type="submit"
-                className="ml-auto rounded-xl bg-primary hover:bg-primary"
+                className="ml-auto rounded-none bg-primary hover:bg-primary"
               >
                 Submit
               </Button>

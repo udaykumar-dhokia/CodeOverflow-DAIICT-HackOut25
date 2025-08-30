@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { axiosInstance } from '@/api/axiosInstance'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute(
   '/_public/auth/project-developer/_layout/login',
@@ -13,20 +15,40 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Login submitted:', { email, password })
-    // TODO: integrate with backend / API call
+    setLoading(true)
+
+    try {
+      const payload = { email, password }
+      const res = await axiosInstance.post(
+        '/auth/project-developer/login',
+        payload,
+      )
+
+      const { message } = res.data
+
+      toast.success(message || 'Login successful')
+      navigate({ to: '/project-developer/dashboard' })
+    } catch (error: any) {
+      const msg = error?.response?.data?.message || 'Invalid email or password'
+      toast.error(msg)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-white">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md">
+    <div className="flex h-screen w-full items-center justify-center bg-gray-50">
+      <div className="w-full max-w-md rounded-none bg-white p-8 shadow-md">
         <h2 className="mb-2 text-2xl font-semibold text-gray-800">Login</h2>
         <p className="mb-6">
-          Login to access hydrogen ecosystem with our interactive mapping and
-          analytics platform.
+          Login to access the hydrogen ecosystem with our interactive mapping
+          and analytics platform.
         </p>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
@@ -37,7 +59,7 @@ function RouteComponent() {
               type="email"
               placeholder="john@example.com"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -50,7 +72,7 @@ function RouteComponent() {
               type="password"
               placeholder="••••••••"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -58,9 +80,10 @@ function RouteComponent() {
 
           <Button
             type="submit"
-            className="w-full rounded-xl bg-primary hover:bg-primary"
+            disabled={loading}
+            className="w-full rounded-none bg-primary hover:bg-primary/90 transition cursor-pointer"
           >
-            Continue
+            {loading ? 'Logging in...' : 'Continue'}
           </Button>
 
           <p className="text-center">

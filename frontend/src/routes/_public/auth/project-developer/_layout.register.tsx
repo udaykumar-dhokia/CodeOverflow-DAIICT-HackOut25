@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { toast } from 'sonner'
+import { axiosInstance } from '@/api/axiosInstance'
 
 export const Route = createFileRoute(
   '/_public/auth/project-developer/_layout/register',
@@ -15,32 +17,54 @@ function RouteComponent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match!')
+      toast.error('Passwords do not match')
       return
     }
 
-    console.log('Registration submitted:', {
-      name,
-      email,
-      password,
-      confirmPassword,
-    })
+    try {
+      setLoading(true)
 
-    // TODO: integrate with backend / API call
+      const payload = { name, email, password }
+      const res = await axiosInstance.post(
+        '/auth/project-developer/register',
+        payload,
+      )
+
+      toast.success(res.data.message || 'Registered successfully!')
+
+      setName('')
+      setEmail('')
+      setPassword('')
+      setConfirmPassword('')
+
+      navigate({ to: '/project-developer/dashboard' })
+    } catch (error: any) {
+      console.error(error)
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          'Something went wrong. Please try again.',
+      )
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <div className="w-full max-w-md rounded-none bg-white p-8 shadow-md">
         <h2 className="mb-2 text-2xl font-semibold text-gray-800">Register</h2>
         <p className="mb-6">
-          Register to access hydrogen ecosystem with our interactive mapping and
-          analytics platform.
+          Register to access the hydrogen ecosystem with our interactive mapping
+          and analytics platform.
         </p>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
@@ -51,7 +75,7 @@ function RouteComponent() {
               type="text"
               placeholder="John Doe"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -64,7 +88,7 @@ function RouteComponent() {
               type="email"
               placeholder="john@example.com"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -77,7 +101,7 @@ function RouteComponent() {
               type="password"
               placeholder="••••••••"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -90,7 +114,7 @@ function RouteComponent() {
               type="password"
               placeholder="••••••••"
               required
-              className="rounded-xl"
+              className="rounded-none"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -98,9 +122,10 @@ function RouteComponent() {
 
           <Button
             type="submit"
-            className="w-full rounded-xl bg-primary hover:bg-primary"
+            disabled={loading}
+            className="w-full rounded-none bg-primary hover:bg-primary/90"
           >
-            Continue
+            {loading ? 'Registering...' : 'Continue'}
           </Button>
 
           <p className="text-center">
