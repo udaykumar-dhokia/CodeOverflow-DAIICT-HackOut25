@@ -161,7 +161,7 @@ function RouteComponent() {
                   <div className="text-right">
                     {project.budget ? (
                       <p className="text-sm font-semibold text-primary">
-                        ${project.budget.toLocaleString()}
+                        ₹{project.budget.toLocaleString()}
                       </p>
                     ) : project.capacity ? (
                       <p className="text-sm text-gray-600">

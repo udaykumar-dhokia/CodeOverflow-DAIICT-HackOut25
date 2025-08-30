@@ -5,7 +5,7 @@ import back from '/back.jpeg'
 const links = [
   { name: 'Home', route: '/' },
   { name: 'Company', route: '/auth/company/login' },
-  { name: 'Developer', route: '/auth/project-developer/login' },
+  { name: 'Project Developer', route: '/auth/project-developer/login' },
   { name: 'Contact', route: '/contact' },
 ]
 

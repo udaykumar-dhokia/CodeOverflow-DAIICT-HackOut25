@@ -20,3 +20,12 @@ export const persistProjectsAssetsData = async (projectDeveloperId: string) => {
     return null
   }
 }
+
+export const persistCompanyData = async () => {
+  try {
+    const res = await axiosInstance.get('/auth/company/exists')
+    return res?.data?.user || null
+  } catch {
+    return null
+  }
+}

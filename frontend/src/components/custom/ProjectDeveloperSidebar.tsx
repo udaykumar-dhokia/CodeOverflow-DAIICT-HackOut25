@@ -48,11 +48,6 @@ const items = [
     icon: MapPinPlus,
   },
   {
-    title: 'Chat',
-    url: '#',
-    icon: MessageCircle,
-  },
-  {
     title: 'Profile',
     url: '/project-developer/profile',
     icon: User,

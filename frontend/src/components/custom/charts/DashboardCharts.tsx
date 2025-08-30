@@ -119,7 +119,7 @@ const DashboardCharts: React.FC<ChartProps> = ({
           d3.select(this).attr('opacity', 0.7)
           tooltip
             .style('opacity', 1)
-            .html(`${assetTypes[i]} Budget: $${d.toLocaleString()}`)
+            .html(`${assetTypes[i]} Budget: ₹${d.toLocaleString()}`)
             .style('left', `${event.pageX + 10}px`)
             .style('top', `${event.pageY - 28}px`)
         })
@@ -211,7 +211,7 @@ const DashboardCharts: React.FC<ChartProps> = ({
           d3.select(this).attr('opacity', 0.7)
           tooltip
             .style('opacity', 1)
-            .html(`${assetTypes[d.index]}: $${d.data.toLocaleString()}`)
+            .html(`${assetTypes[d.index]}: ₹${d.data.toLocaleString()}`)
             .style('left', `${event.pageX + 10}px`)
             .style('top', `${event.pageY - 28}px`)
         })

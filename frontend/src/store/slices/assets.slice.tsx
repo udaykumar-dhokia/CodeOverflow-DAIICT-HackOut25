@@ -11,6 +11,7 @@ interface Plant {
   createdAt: string
   updatedAt: string
   project_name: string
+  report: string
 }
 
 interface Storage {
@@ -24,6 +25,7 @@ interface Storage {
   createdAt: string
   updatedAt: string
   project_name: string
+  report: string
 }
 
 export interface Pipeline {
@@ -37,6 +39,7 @@ export interface Pipeline {
   createdAt: string
   updatedAt: string
   project_name: string
+  report: string
 }
 
 interface DistributionHub {
@@ -51,6 +54,7 @@ interface DistributionHub {
   createdAt: string
   updatedAt: string
   project_name: string
+  report: string
 }
 
 interface ProjectDeveloperAssetsState {

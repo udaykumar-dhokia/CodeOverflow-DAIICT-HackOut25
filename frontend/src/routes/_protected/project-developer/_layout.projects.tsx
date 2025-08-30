@@ -27,6 +27,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog'
 import { persistProjectsAssetsData } from '@/utils/auth'
+import { ReportDialog } from '@/components/custom/dailogs/ReportDialog'
 
 export const Route = createFileRoute(
   '/_protected/project-developer/_layout/projects',
@@ -57,6 +58,9 @@ function RouteComponent() {
     name: string
   } | null>(null)
 
+  const [reportDialogOpen, setReportDialogOpen] = useState(false)
+  const [selectedReport, setSelectedReport] = useState<any>(null)
+
   const {
     plants = [],
     storage = [],
@@ -83,7 +87,27 @@ function RouteComponent() {
   }
 
   const handleViewReport = (type: string, id: string) => {
-    console.log('View report:', type, id)
+    let reportData: any = null
+
+    switch (type) {
+      case 'plant':
+        reportData = plants.find((p) => p._id === id)
+        break
+      case 'storage':
+        reportData = storage.find((s) => s._id === id)
+        break
+      case 'pipeline':
+        reportData = pipelines.find((pl) => pl._id === id)
+        break
+      case 'distributionHub':
+        reportData = distributionHubs.find((d) => d._id === id)
+        break
+    }
+
+    if (reportData) {
+      setSelectedReport(reportData)
+      setReportDialogOpen(true)
+    }
   }
 
   const handleDelete = (type: string, id: string, name: string) => {
@@ -197,6 +221,13 @@ function RouteComponent() {
           View Report
         </Button>
         <Button
+          size={'sm'}
+          variant={'outline'}
+          className="rounded-none flex-1 hover:bg-primary hover:text-white cursor-pointer"
+        >
+          Download
+        </Button>
+        <Button
           size="sm"
           variant={'outline'}
           className="rounded-none flex-1 cursor-pointer hover:border-red-400 hover:border"
@@ -214,6 +245,12 @@ function RouteComponent() {
     <div className="min-h-screen">
       <header className="flex items-center justify-between p-6 bg-white">
         <h1 className="text-3xl font-bold text-gray-800">Projects</h1>
+
+        <ReportDialog
+          open={reportDialogOpen}
+          onOpenChange={setReportDialogOpen}
+          report={selectedReport}
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
