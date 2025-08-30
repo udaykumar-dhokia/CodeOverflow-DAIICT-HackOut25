@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from "mongoose"
 export interface DistributionHubInterface extends Document {
   _id: mongoose.Types.ObjectId
   budget: number
+  project_name: string,
   capacity: number
   service_radius: number
   proximity_preference: string
@@ -16,6 +17,7 @@ export interface DistributionHubInterface extends Document {
 
 const DistributionHubSchema: Schema<DistributionHubInterface> = new Schema(
   {
+    project_name: { type: String, required: true, trim: true },
     budget: { type: Number, required: true },
     capacity: { type: Number, required: true },
     service_radius: { type: Number, required: true }, //  km
