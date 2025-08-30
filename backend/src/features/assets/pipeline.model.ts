@@ -8,6 +8,7 @@ export interface PipelineInterface extends Document {
   route_preference: string
   project_developer_id: mongoose.Types.ObjectId
   location: Array<string>
+  report: string
   createdAt?: Date
   updatedAt?: Date
 }
@@ -24,6 +25,7 @@ const PipelineSchema: Schema<PipelineInterface> = new Schema(
       ref: "ProjectDeveloper",
       required: true,
     },
+    report: { type: String, required: false, default: '' },
   },
   { timestamps: true }
 )

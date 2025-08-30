@@ -29,6 +29,7 @@ interface UpdateDistributionHubInput {
   land_requirement?: number;
   project_developer_id?: string;
   location?: string[];
+  report?: string;
 }
 interface CreatePipelineInput {
   budget: number;
@@ -45,6 +46,7 @@ interface UpdatePipelineInput {
   route_preference?: string;
   project_developer_id?: string;
   location?: string[];
+  report?: string;
 }
 interface CreatePlantInput {
   budget: number;
@@ -61,6 +63,7 @@ interface UpdatePlantInput {
   logistic_preference?: string;
   project_developer_id?: string;
   location?: string[];
+  report?: string;
 }
 interface CreateStorageInput {
   budget: number;
@@ -77,6 +80,7 @@ interface UpdateStorageInput {
   proximity_preference?: string;
   project_developer_id?: string;
   location?: string[];
+  report?: string;
 }
 export const createPipeline = async (req: Request, res: Response) => {
   try {
@@ -165,6 +169,31 @@ export const updatePipeline = async (req: Request, res: Response) => {
     });
   }
 };
+export const DeletePipeline = async(req: Request, res: Response) => {
+ try{
+    const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: 'Invalid pipeline ID'
+      });
+    }
+    const deletedPipeline = await Pipeline.findByIdAndDelete(id);
+    if (!deletedPipeline) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        message: 'Pipeline not found'
+      });
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'Pipeline deleted successfully',
+      data: deletedPipeline
+    });
+  } catch (err) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      message: 'Error deleting pipeline',
+      error: err instanceof Error ? err.message : 'Unknown error'
+    });
+  }
+}
 export const createDistributionHub = async (req: Request, res: Response) => {
   try {
     const {
@@ -257,6 +286,35 @@ export const updateDistributionHub = async (req: Request, res: Response) => {
     });
   }
 };
+export const DeleteDistributionHub = async(req: Request, res: Response) => {
+ try{
+   const { id } = req.params;
+
+   if (!Types.ObjectId.isValid(id)) {
+     return res.status(HttpStatus.BAD_REQUEST).json({
+       message: 'Invalid distribution hub ID'
+     });
+   }
+
+   const deletedHub = await DistributionHub.findByIdAndDelete(id);
+
+   if (!deletedHub) {
+     return res.status(HttpStatus.NOT_FOUND).json({
+       message: 'Distribution hub not found'
+     });
+   }
+
+   return res.status(HttpStatus.OK).json({
+     message: 'Distribution hub deleted successfully',
+     data: deletedHub
+   });
+ } catch(err){
+   return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+     message: 'Error deleting distribution hub',
+     error: err instanceof Error ? err.message : 'Unknown error'
+   });
+ }
+}
 export const createPlant = async (req: Request, res: Response) => {
   try {
     const {
@@ -356,6 +414,31 @@ export const updatePlant = async (req: Request, res: Response) => {
     });
   }
 };
+export const DeletePlant = async(req: Request, res: Response) => {
+ try{
+   const { id } = req.params;
+   if (!Types.ObjectId.isValid(id)) {
+     return res.status(HttpStatus.BAD_REQUEST).json({
+       message: 'Invalid plant ID'
+     });
+   }
+   const deletedPlant = await Plant.findByIdAndDelete(id);
+   if (!deletedPlant) {
+     return res.status(HttpStatus.NOT_FOUND).json({
+       message: 'Plant not found'
+     });
+   }
+   return res.status(HttpStatus.OK).json({
+     message: 'Plant deleted successfully',
+     data: deletedPlant
+   });
+ } catch(err){
+   return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+     message: 'Error deleting plant',
+     error: err instanceof Error ? err.message : 'Unknown error'
+   });
+ }
+}
 export const createStorage = async (req: Request, res: Response) => {
   try {
     const {
@@ -451,6 +534,29 @@ export const updateStorage = async (req: Request, res: Response) => {
     });
   }
 };
+export const DeleteStorage = async (req:Request,res: Response)=>{
+    try{
+       const { id } = req.params;
+       if (!Types.ObjectId.isValid(id)) {
+         return res.status(HttpStatus.BAD_REQUEST).json({
+           message: 'Invalid storage ID'
+         });
+       }
+       const deletedStorage = await Storage.findByIdAndDelete(id);
+       if (!deletedStorage) {
+         return res.status(HttpStatus.NOT_FOUND).json({
+           message: 'Storage not found'
+         });
+       }
+       return res.status(HttpStatus.OK).json({
+         message: 'Storage deleted successfully',
+         data: deletedStorage
+       });
+    }
+    catch(err){
+    console.log('error ',err)
+    }
+}
 export const getAllProjectsByDeveloper = async (req: Request, res: Response) => {
   try {
     const { project_developer_id  } = req.params;
