@@ -10,7 +10,6 @@ export interface IPlant extends Document {
   report: string;
   project_developer_id: mongoose.Types.ObjectId;
 }
-
 const PlantSchema: Schema<IPlant> = new Schema(
   {
     project_name: {
@@ -18,6 +17,10 @@ const PlantSchema: Schema<IPlant> = new Schema(
       trim: true,
       required: true,
     },
+    budget: {
+      type: Number,
+      required: true,
+    },  
     capacity: {
       type: Number,
       required: true,

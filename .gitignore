@@ -23,12 +23,12 @@ frontend/.vite/
 # Optional OS-specific
 Thumbs.db
 desktop.ini
-
+*.csv
 # Optional editor-specific
 .vscode/
 .idea/
 *.sw?
-
+.pyc
 # Logs
 npm-debug.log*
 yarn-debug.log*
