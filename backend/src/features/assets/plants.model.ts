@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IPlant extends Document {
+  project_name: string;
   budget: number;
   capacity: number;
   preferred_source: string;
@@ -12,8 +13,9 @@ export interface IPlant extends Document {
 
 const PlantSchema: Schema<IPlant> = new Schema(
   {
-    budget: {
-      type: Number,
+    project_name: {
+      type: String,
+      trim: true,
       required: true,
     },
     capacity: {

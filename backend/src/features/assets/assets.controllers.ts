@@ -14,6 +14,7 @@ interface ProjectsResponse {
 }
 interface CreateDistributionHubInput {
   budget: number;
+  project_name: string,
   capacity: number;
   service_radius: number;
   proximity_preference: string;
@@ -23,6 +24,7 @@ interface CreateDistributionHubInput {
 }
 interface UpdateDistributionHubInput {
   budget?: number;
+  project_name?: string;
   capacity?: number;
   service_radius?: number;
   proximity_preference?: string;
@@ -33,6 +35,7 @@ interface UpdateDistributionHubInput {
 }
 interface CreatePipelineInput {
   budget: number;
+  project_name: string;
   capacity: number;
   length_estimate: number;
   route_preference: string;
@@ -41,6 +44,7 @@ interface CreatePipelineInput {
 }
 interface UpdatePipelineInput {
   budget?: number;
+  project_name?: string;
   capacity?: number;
   length_estimate?: number;
   route_preference?: string;
@@ -50,6 +54,7 @@ interface UpdatePipelineInput {
 }
 interface CreatePlantInput {
   budget: number;
+  project_name: string;
   capacity: number;
   preferred_source: string;
   logistic_preference: string;
@@ -58,6 +63,7 @@ interface CreatePlantInput {
 }
 interface UpdatePlantInput {
   budget?: number;
+  project_name?: string;
   capacity?: number;
   preferred_source?: string;
   logistic_preference?: string;
@@ -67,6 +73,7 @@ interface UpdatePlantInput {
 }
 interface CreateStorageInput {
   budget: number;
+  project_name: string;
   capacity: number;
   technology?: string;
   proximity_preference: string;
@@ -75,6 +82,7 @@ interface CreateStorageInput {
 }
 interface UpdateStorageInput {
   budget?: number;
+  project_name?: string;
   capacity?: number;
   technology?: string;
   proximity_preference?: string;
@@ -85,6 +93,7 @@ interface UpdateStorageInput {
 export const createPipeline = async (req: Request, res: Response) => {
   try {
     const {
+      project_name,  
       budget,
       capacity,
       length_estimate,
@@ -92,8 +101,7 @@ export const createPipeline = async (req: Request, res: Response) => {
       project_developer_id,
       location
     }: CreatePipelineInput = req.body;
-
-    if (!budget || !capacity || !length_estimate || !route_preference || !project_developer_id) {
+    if (!project_name || !budget || !capacity || !length_estimate || !route_preference || !project_developer_id) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'All required fields must be provided'
       });
@@ -103,7 +111,14 @@ export const createPipeline = async (req: Request, res: Response) => {
         message: 'Invalid project_developer_id format'
       });
     }
+    const checkExisting = await Pipeline.findOne({ project_name, project_developer_id });
+    if (checkExisting) {
+      return res.status(HttpStatus.CONFLICT).json({
+        message: 'Pipeline with the same project name and developer ID already exists'
+      });
+    }
     const newPipeline: PipelineInterface = await Pipeline.create({
+      project_name,
       budget,
       capacity,
       length_estimate,
@@ -111,7 +126,6 @@ export const createPipeline = async (req: Request, res: Response) => {
       project_developer_id,
       location: location || []
     });
-
     return res.status(HttpStatus.CREATED).json({
       message: 'Pipeline created successfully',
       data: newPipeline
@@ -197,6 +211,7 @@ export const DeletePipeline = async(req: Request, res: Response) => {
 export const createDistributionHub = async (req: Request, res: Response) => {
   try {
     const {
+      project_name,
       budget,
       capacity,
       service_radius,
@@ -205,20 +220,24 @@ export const createDistributionHub = async (req: Request, res: Response) => {
       project_developer_id,
       location
     }: CreateDistributionHubInput = req.body;
-
-    if (!budget || !capacity || !service_radius || !proximity_preference || !land_requirement || !project_developer_id) {
+    if (!project_name || !budget || !capacity || !service_radius || !proximity_preference || !land_requirement || !project_developer_id) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'All required fields must be provided'
       });
     }
-
     if (!Types.ObjectId.isValid(project_developer_id)) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Invalid project_developer_id format'
       });
     }
-
+    const checkExisting = await DistributionHub.findOne({ project_name, project_developer_id });
+    if (checkExisting) {
+      return res.status(HttpStatus.CONFLICT).json({
+        message: 'Distribution hub with the same project name and developer ID already exists'
+      });
+    }
     const newHub: DistributionHubInterface = await DistributionHub.create({
+      project_name,
       budget,
       capacity,
       service_radius,
@@ -227,7 +246,6 @@ export const createDistributionHub = async (req: Request, res: Response) => {
       project_developer_id,
       location: location || []
     });
-
     return res.status(HttpStatus.CREATED).json({
       message: 'Distribution hub created successfully',
       data: newHub
@@ -244,37 +262,31 @@ export const updateDistributionHub = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const updateData: UpdateDistributionHubInput = req.body;
-
     if (!Types.ObjectId.isValid(id)) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Invalid distribution hub ID'
       });
     }
-
     if (Object.keys(updateData).length === 0) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'No update data provided'
       });
     }
-
     if (updateData.project_developer_id && !Types.ObjectId.isValid(updateData.project_developer_id)) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Invalid project_developer_id format'
       });
     }
-
     const updatedHub = await DistributionHub.findByIdAndUpdate(
       id,
       { $set: updateData },
       { new: true, runValidators: true }
     );
-
     if (!updatedHub) {
       return res.status(HttpStatus.NOT_FOUND).json({
         message: 'Distribution hub not found'
       });
     }
-
     return res.status(HttpStatus.OK).json({
       message: 'Distribution hub updated successfully',
       data: updatedHub
@@ -286,24 +298,21 @@ export const updateDistributionHub = async (req: Request, res: Response) => {
     });
   }
 };
+
 export const DeleteDistributionHub = async(req: Request, res: Response) => {
  try{
    const { id } = req.params;
-
    if (!Types.ObjectId.isValid(id)) {
      return res.status(HttpStatus.BAD_REQUEST).json({
        message: 'Invalid distribution hub ID'
      });
    }
-
    const deletedHub = await DistributionHub.findByIdAndDelete(id);
-
    if (!deletedHub) {
      return res.status(HttpStatus.NOT_FOUND).json({
        message: 'Distribution hub not found'
      });
    }
-
    return res.status(HttpStatus.OK).json({
      message: 'Distribution hub deleted successfully',
      data: deletedHub
@@ -318,6 +327,7 @@ export const DeleteDistributionHub = async(req: Request, res: Response) => {
 export const createPlant = async (req: Request, res: Response) => {
   try {
     const {
+      project_name,
       budget,
       capacity,
       preferred_source,
@@ -326,26 +336,30 @@ export const createPlant = async (req: Request, res: Response) => {
       location
     }: CreatePlantInput = req.body;
 
-    if (!budget || !capacity || !preferred_source || !logistic_preference || !project_developer_id) {
+    if (!project_name || !budget || !capacity || !preferred_source || !logistic_preference || !project_developer_id) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'All required fields must be provided'
       });
     }
-
     if (!Types.ObjectId.isValid(project_developer_id)) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Invalid project_developer_id format'
       });
     }
-
     const validLogisticPreferences = ['port', 'demand', 'pipeline', 'plant'];
     if (!validLogisticPreferences.includes(logistic_preference)) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'Invalid logistic_preference value'
       });
     }
-
+    const checkExisting = await Plant.findOne({ project_name, project_developer_id });
+    if (checkExisting) {
+      return res.status(HttpStatus.CONFLICT).json({
+        message: 'Plant with the same project name and developer ID already exists'
+      });
+    }
     const newPlant: IPlant = await Plant.create({
+      project_name,  
       budget,
       capacity,
       preferred_source,
@@ -353,7 +367,6 @@ export const createPlant = async (req: Request, res: Response) => {
       project_developer_id,
       location: location || []
     });
-
     return res.status(HttpStatus.CREATED).json({
       message: 'Plant created successfully',
       data: newPlant
@@ -442,6 +455,7 @@ export const DeletePlant = async(req: Request, res: Response) => {
 export const createStorage = async (req: Request, res: Response) => {
   try {
     const {
+      project_name,  
       budget,
       capacity,
       technology,
@@ -449,7 +463,7 @@ export const createStorage = async (req: Request, res: Response) => {
       project_developer_id,
       location
     }: CreateStorageInput = req.body;
-    if (!budget || !capacity || !proximity_preference || !project_developer_id) {
+    if (!project_name || !budget || !capacity || !proximity_preference || !project_developer_id) {
       return res.status(HttpStatus.BAD_REQUEST).json({
         message: 'All required fields must be provided'
       });
@@ -465,7 +479,14 @@ export const createStorage = async (req: Request, res: Response) => {
         message: 'Invalid proximity_preference value'
       });
     }
+    const checkExisting = await Storage.findOne({ project_name, project_developer_id });
+    if (checkExisting) {
+      return res.status(HttpStatus.CONFLICT).json({
+        message: 'Storage with the same project name and developer ID already exists'
+      });
+    }
     const newStorage: StorageInterface = await Storage.create({
+      project_name,  
       budget,
       capacity,
       technology: technology || '',
