@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 # Load environment
 load_dotenv()
-google_api_key = "AIzaSyC03cRNSjEg8oMBvdX-scEzDW1t15U7hY0"
+google_api_key = os.getenv("GOOGLE_API_KEY")
 
 # FastAPI app
 app = FastAPI()
