@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '../ui/dialog'
+} from '../../ui/dialog'
 import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
 import { store, type RootState } from '@/store/store'
