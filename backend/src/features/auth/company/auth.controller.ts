@@ -24,7 +24,7 @@ const AuthController2 = {
           .status(HttpStatus.UNAUTHORIZED)
           .json({ message: "Invalid credentials." });
       }
-      const token = setToken(company._id.toString());
+      const token = await setToken(company._id.toString());
       res.cookie("token", token, jwtCookieOptions);
       return res
         .status(HttpStatus.OK)
@@ -92,7 +92,7 @@ const AuthController2 = {
           .json({ message: "Company already exists." });
       }
       const company = await userDao.create(payload);
-      const token = setToken(company._id.toString());
+      const token = await setToken(company._id.toString());
       if (!token) {
         return res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)

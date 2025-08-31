@@ -5,8 +5,7 @@ export interface CompanyInterface extends Document {
   name: string
   website: string
   GSTIN?: string
-  about_us: string
-  company_size: number
+  company_size: string
   location: string
   email: string
   contact: string
@@ -23,8 +22,7 @@ const CompanySchema: Schema<CompanyInterface> = new Schema(
     name: { type: String, required: true, trim: true },
     website: { type: String, required: true },
     GSTIN: { type: String, required: false },
-    about_us: { type: String, required: true },
-    company_size: { type: Number, required: true },
+    company_size: { type: String  , required: true },
     location: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     contact: { type: String, required: true },

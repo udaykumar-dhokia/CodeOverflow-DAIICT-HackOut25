@@ -1,10 +1,9 @@
-import userDao from "../features/auth/project_developer/user.dao";
+import userDao from "../features/auth/company/user.dao";
 import HttpStatus from "../utils/httpStatus";
 import { verifyToken } from "../utils/jwt";
 
 const companyMiddleware = async (req, res, next) => {
   const token = req.cookies.token || req.headers.authorization.split(" ")[1];
-  console.log(token);
   if (!token) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
