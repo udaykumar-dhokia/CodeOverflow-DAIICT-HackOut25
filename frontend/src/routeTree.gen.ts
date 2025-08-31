@@ -12,6 +12,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as PublicMarketplaceRouteImport } from './routes/_public/marketplace'
 import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as ProtectedProjectDeveloperLayoutRouteImport } from './routes/_protected/project-developer/_layout'
 import { Route as ProtectedCompanyLayoutRouteImport } from './routes/_protected/company/_layout'
@@ -20,7 +21,9 @@ import { Route as PublicAuthCompanyLayoutRouteImport } from './routes/_public/au
 import { Route as ProtectedProjectDeveloperLayoutProjectsRouteImport } from './routes/_protected/project-developer/_layout.projects'
 import { Route as ProtectedProjectDeveloperLayoutProfileRouteImport } from './routes/_protected/project-developer/_layout.profile'
 import { Route as ProtectedProjectDeveloperLayoutOpenmapRouteImport } from './routes/_protected/project-developer/_layout.openmap'
+import { Route as ProtectedProjectDeveloperLayoutMarketplaceRouteImport } from './routes/_protected/project-developer/_layout.marketplace'
 import { Route as ProtectedProjectDeveloperLayoutDashboardRouteImport } from './routes/_protected/project-developer/_layout.dashboard'
+import { Route as ProtectedCompanyLayoutMarketplaceRouteImport } from './routes/_protected/company/_layout.marketplace'
 import { Route as ProtectedCompanyLayoutDashboardRouteImport } from './routes/_protected/company/_layout.dashboard'
 import { Route as PublicAuthProjectDeveloperLayoutRegisterRouteImport } from './routes/_public/auth/project-developer/_layout.register'
 import { Route as PublicAuthProjectDeveloperLayoutLoginRouteImport } from './routes/_public/auth/project-developer/_layout.login'
@@ -50,6 +53,11 @@ const ProtectedCompanyRoute = ProtectedCompanyRouteImport.update({
 const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/_public/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicMarketplaceRoute = PublicMarketplaceRouteImport.update({
+  id: '/_public/marketplace',
+  path: '/marketplace',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicContactRoute = PublicContactRouteImport.update({
@@ -104,11 +112,23 @@ const ProtectedProjectDeveloperLayoutOpenmapRoute =
     path: '/openmap',
     getParentRoute: () => ProtectedProjectDeveloperLayoutRoute,
   } as any)
+const ProtectedProjectDeveloperLayoutMarketplaceRoute =
+  ProtectedProjectDeveloperLayoutMarketplaceRouteImport.update({
+    id: '/marketplace',
+    path: '/marketplace',
+    getParentRoute: () => ProtectedProjectDeveloperLayoutRoute,
+  } as any)
 const ProtectedProjectDeveloperLayoutDashboardRoute =
   ProtectedProjectDeveloperLayoutDashboardRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
     getParentRoute: () => ProtectedProjectDeveloperLayoutRoute,
+  } as any)
+const ProtectedCompanyLayoutMarketplaceRoute =
+  ProtectedCompanyLayoutMarketplaceRouteImport.update({
+    id: '/marketplace',
+    path: '/marketplace',
+    getParentRoute: () => ProtectedCompanyLayoutRoute,
   } as any)
 const ProtectedCompanyLayoutDashboardRoute =
   ProtectedCompanyLayoutDashboardRouteImport.update({
@@ -143,11 +163,14 @@ const PublicAuthCompanyLayoutLoginRoute =
 
 export interface FileRoutesByFullPath {
   '/contact': typeof PublicContactRoute
+  '/marketplace': typeof PublicMarketplaceRoute
   '/': typeof PublicIndexRoute
   '/company': typeof ProtectedCompanyLayoutRouteWithChildren
   '/project-developer': typeof ProtectedProjectDeveloperLayoutRouteWithChildren
   '/company/dashboard': typeof ProtectedCompanyLayoutDashboardRoute
+  '/company/marketplace': typeof ProtectedCompanyLayoutMarketplaceRoute
   '/project-developer/dashboard': typeof ProtectedProjectDeveloperLayoutDashboardRoute
+  '/project-developer/marketplace': typeof ProtectedProjectDeveloperLayoutMarketplaceRoute
   '/project-developer/openmap': typeof ProtectedProjectDeveloperLayoutOpenmapRoute
   '/project-developer/profile': typeof ProtectedProjectDeveloperLayoutProfileRoute
   '/project-developer/projects': typeof ProtectedProjectDeveloperLayoutProjectsRoute
@@ -160,11 +183,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/contact': typeof PublicContactRoute
+  '/marketplace': typeof PublicMarketplaceRoute
   '/': typeof PublicIndexRoute
   '/company': typeof ProtectedCompanyLayoutRouteWithChildren
   '/project-developer': typeof ProtectedProjectDeveloperLayoutRouteWithChildren
   '/company/dashboard': typeof ProtectedCompanyLayoutDashboardRoute
+  '/company/marketplace': typeof ProtectedCompanyLayoutMarketplaceRoute
   '/project-developer/dashboard': typeof ProtectedProjectDeveloperLayoutDashboardRoute
+  '/project-developer/marketplace': typeof ProtectedProjectDeveloperLayoutMarketplaceRoute
   '/project-developer/openmap': typeof ProtectedProjectDeveloperLayoutOpenmapRoute
   '/project-developer/profile': typeof ProtectedProjectDeveloperLayoutProfileRoute
   '/project-developer/projects': typeof ProtectedProjectDeveloperLayoutProjectsRoute
@@ -178,13 +204,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public/contact': typeof PublicContactRoute
+  '/_public/marketplace': typeof PublicMarketplaceRoute
   '/_public/': typeof PublicIndexRoute
   '/_protected/company': typeof ProtectedCompanyRouteWithChildren
   '/_protected/company/_layout': typeof ProtectedCompanyLayoutRouteWithChildren
   '/_protected/project-developer': typeof ProtectedProjectDeveloperRouteWithChildren
   '/_protected/project-developer/_layout': typeof ProtectedProjectDeveloperLayoutRouteWithChildren
   '/_protected/company/_layout/dashboard': typeof ProtectedCompanyLayoutDashboardRoute
+  '/_protected/company/_layout/marketplace': typeof ProtectedCompanyLayoutMarketplaceRoute
   '/_protected/project-developer/_layout/dashboard': typeof ProtectedProjectDeveloperLayoutDashboardRoute
+  '/_protected/project-developer/_layout/marketplace': typeof ProtectedProjectDeveloperLayoutMarketplaceRoute
   '/_protected/project-developer/_layout/openmap': typeof ProtectedProjectDeveloperLayoutOpenmapRoute
   '/_protected/project-developer/_layout/profile': typeof ProtectedProjectDeveloperLayoutProfileRoute
   '/_protected/project-developer/_layout/projects': typeof ProtectedProjectDeveloperLayoutProjectsRoute
@@ -201,11 +230,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/contact'
+    | '/marketplace'
     | '/'
     | '/company'
     | '/project-developer'
     | '/company/dashboard'
+    | '/company/marketplace'
     | '/project-developer/dashboard'
+    | '/project-developer/marketplace'
     | '/project-developer/openmap'
     | '/project-developer/profile'
     | '/project-developer/projects'
@@ -218,11 +250,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/contact'
+    | '/marketplace'
     | '/'
     | '/company'
     | '/project-developer'
     | '/company/dashboard'
+    | '/company/marketplace'
     | '/project-developer/dashboard'
+    | '/project-developer/marketplace'
     | '/project-developer/openmap'
     | '/project-developer/profile'
     | '/project-developer/projects'
@@ -235,13 +270,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_public/contact'
+    | '/_public/marketplace'
     | '/_public/'
     | '/_protected/company'
     | '/_protected/company/_layout'
     | '/_protected/project-developer'
     | '/_protected/project-developer/_layout'
     | '/_protected/company/_layout/dashboard'
+    | '/_protected/company/_layout/marketplace'
     | '/_protected/project-developer/_layout/dashboard'
+    | '/_protected/project-developer/_layout/marketplace'
     | '/_protected/project-developer/_layout/openmap'
     | '/_protected/project-developer/_layout/profile'
     | '/_protected/project-developer/_layout/projects'
@@ -257,6 +295,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   PublicContactRoute: typeof PublicContactRoute
+  PublicMarketplaceRoute: typeof PublicMarketplaceRoute
   PublicIndexRoute: typeof PublicIndexRoute
   ProtectedCompanyRoute: typeof ProtectedCompanyRouteWithChildren
   ProtectedProjectDeveloperRoute: typeof ProtectedProjectDeveloperRouteWithChildren
@@ -285,6 +324,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/marketplace': {
+      id: '/_public/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof PublicMarketplaceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/contact': {
@@ -357,12 +403,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedProjectDeveloperLayoutOpenmapRouteImport
       parentRoute: typeof ProtectedProjectDeveloperLayoutRoute
     }
+    '/_protected/project-developer/_layout/marketplace': {
+      id: '/_protected/project-developer/_layout/marketplace'
+      path: '/marketplace'
+      fullPath: '/project-developer/marketplace'
+      preLoaderRoute: typeof ProtectedProjectDeveloperLayoutMarketplaceRouteImport
+      parentRoute: typeof ProtectedProjectDeveloperLayoutRoute
+    }
     '/_protected/project-developer/_layout/dashboard': {
       id: '/_protected/project-developer/_layout/dashboard'
       path: '/dashboard'
       fullPath: '/project-developer/dashboard'
       preLoaderRoute: typeof ProtectedProjectDeveloperLayoutDashboardRouteImport
       parentRoute: typeof ProtectedProjectDeveloperLayoutRoute
+    }
+    '/_protected/company/_layout/marketplace': {
+      id: '/_protected/company/_layout/marketplace'
+      path: '/marketplace'
+      fullPath: '/company/marketplace'
+      preLoaderRoute: typeof ProtectedCompanyLayoutMarketplaceRouteImport
+      parentRoute: typeof ProtectedCompanyLayoutRoute
     }
     '/_protected/company/_layout/dashboard': {
       id: '/_protected/company/_layout/dashboard'
@@ -404,11 +464,14 @@ declare module '@tanstack/react-router' {
 
 interface ProtectedCompanyLayoutRouteChildren {
   ProtectedCompanyLayoutDashboardRoute: typeof ProtectedCompanyLayoutDashboardRoute
+  ProtectedCompanyLayoutMarketplaceRoute: typeof ProtectedCompanyLayoutMarketplaceRoute
 }
 
 const ProtectedCompanyLayoutRouteChildren: ProtectedCompanyLayoutRouteChildren =
   {
     ProtectedCompanyLayoutDashboardRoute: ProtectedCompanyLayoutDashboardRoute,
+    ProtectedCompanyLayoutMarketplaceRoute:
+      ProtectedCompanyLayoutMarketplaceRoute,
   }
 
 const ProtectedCompanyLayoutRouteWithChildren =
@@ -429,6 +492,7 @@ const ProtectedCompanyRouteWithChildren =
 
 interface ProtectedProjectDeveloperLayoutRouteChildren {
   ProtectedProjectDeveloperLayoutDashboardRoute: typeof ProtectedProjectDeveloperLayoutDashboardRoute
+  ProtectedProjectDeveloperLayoutMarketplaceRoute: typeof ProtectedProjectDeveloperLayoutMarketplaceRoute
   ProtectedProjectDeveloperLayoutOpenmapRoute: typeof ProtectedProjectDeveloperLayoutOpenmapRoute
   ProtectedProjectDeveloperLayoutProfileRoute: typeof ProtectedProjectDeveloperLayoutProfileRoute
   ProtectedProjectDeveloperLayoutProjectsRoute: typeof ProtectedProjectDeveloperLayoutProjectsRoute
@@ -438,6 +502,8 @@ const ProtectedProjectDeveloperLayoutRouteChildren: ProtectedProjectDeveloperLay
   {
     ProtectedProjectDeveloperLayoutDashboardRoute:
       ProtectedProjectDeveloperLayoutDashboardRoute,
+    ProtectedProjectDeveloperLayoutMarketplaceRoute:
+      ProtectedProjectDeveloperLayoutMarketplaceRoute,
     ProtectedProjectDeveloperLayoutOpenmapRoute:
       ProtectedProjectDeveloperLayoutOpenmapRoute,
     ProtectedProjectDeveloperLayoutProfileRoute:
@@ -528,6 +594,7 @@ const PublicAuthProjectDeveloperRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   PublicContactRoute: PublicContactRoute,
+  PublicMarketplaceRoute: PublicMarketplaceRoute,
   PublicIndexRoute: PublicIndexRoute,
   ProtectedCompanyRoute: ProtectedCompanyRouteWithChildren,
   ProtectedProjectDeveloperRoute: ProtectedProjectDeveloperRouteWithChildren,

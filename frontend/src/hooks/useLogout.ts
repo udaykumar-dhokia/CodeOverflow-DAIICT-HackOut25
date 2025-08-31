@@ -12,7 +12,7 @@ export function useLogout() {
       await axiosInstance.post('/auth/project-developer/logout', {})
 
       dispatch(logout())
-      navigate({ to: '/auth/project-developer/login' })
+      navigate({ to: '/' })
     } catch (error) {
       console.error('Failed to logout', error)
     }

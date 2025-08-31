@@ -52,11 +52,6 @@ function RouteComponent() {
               </p>
             )}
           </div>
-          <div className="ml-auto">
-            <Button variant="outline" className="flex items-center gap-2">
-              <Edit className="w-4 h-4" /> Edit Profile
-            </Button>
-          </div>
         </CardContent>
       </Card>
 

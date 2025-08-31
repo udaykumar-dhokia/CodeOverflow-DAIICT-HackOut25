@@ -3,7 +3,7 @@ import {
   ChevronUp,
   LayoutDashboard,
   MapPinPlus,
-  ShoppingBag,
+  MessageCircle,
   User,
   User2,
 } from 'lucide-react'
@@ -34,34 +34,29 @@ import { useLogout } from '@/hooks/useLogout'
 const items = [
   {
     title: 'Dashoard',
-    url: '/project-developer/dashboard',
+    url: '/company/dashboard',
     icon: LayoutDashboard,
   },
   {
     title: 'Projects',
-    url: '/project-developer/projects',
+    url: '/company/projects',
     icon: BuildingIcon,
   },
   {
     title: 'Open Maps',
-    url: '/project-developer/openmap',
+    url: '/company/openmap',
     icon: MapPinPlus,
   },
   {
-    title: 'Marketplace',
-    url: '/project-developer/marketplace',
-    icon: ShoppingBag,
-  },
-  {
     title: 'Profile',
-    url: '/project-developer/profile',
+    url: '/company/profile',
     icon: User,
   },
 ]
 
-export function ProjectDeveloperSidebar() {
+export function CompanySidebar() {
   const logout = useLogout()
-  const { user } = useSelector((state: RootState) => state.projectDeveloper)
+  const { user } = useSelector((state: RootState) => state.companyAuthReducer)
 
   const currentPath = window.location.pathname
 

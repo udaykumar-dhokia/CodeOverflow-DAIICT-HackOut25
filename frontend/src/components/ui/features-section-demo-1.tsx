@@ -3,6 +3,16 @@ import { useId } from 'react'
 export default function FeaturesSectionDemo() {
   return (
     <div className="py-20 lg:py-10">
+      <div className="flex flex-col text-center w-full mb-20">
+        <h1 className="text-2xl font-medium title-font mb-4 text-gray-900">
+          FEATURES
+        </h1>
+        <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+          Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
+          gentrify, subway tile poke farm-to-table. Franzen you probably haven't
+          heard of them.
+        </p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 md:gap-2 max-w-7xl mx-auto">
         {grid.map((feature) => (
           <div
@@ -25,44 +35,44 @@ export default function FeaturesSectionDemo() {
 
 const grid = [
   {
-    title: 'Renewable Project Mapping',
+    title: 'Interactive Map',
     description:
-      'Interactive maps of solar, wind, storage, and pipeline projects across the hydrogen ecosystem.',
+      'Visualize hydrogen infrastructure across India with layered data on renewable energy sources, demand centers, and transport logistics.',
   },
   {
-    title: 'Real-Time Analytics',
+    title: 'Site Selection Recommendations',
     description:
-      'Monitor energy generation, storage capacity, and pipeline flows with detailed charts and KPIs.',
+      'Data-driven suggestions for optimal project locations based on proximity to renewables, market demand, regulatory zones, and cost efficiency.',
   },
   {
-    title: 'Project Performance Insights',
+    title: 'User-Friendly Interface',
     description:
-      'Evaluate project efficiency and ROI across multiple assets using advanced analytics tools.',
+      'Modern, responsive design for seamless interaction and easy visualization of hydrogen projects.',
   },
   {
-    title: 'Regulatory Compliance',
+    title: 'Charts & Analytics',
     description:
-      'Ensure all projects adhere to national energy regulations, safety standards, and environmental norms.',
+      'Dynamic visualizations showing hydrogen production, consumption, and cost trends across regions in India.',
   },
   {
-    title: 'Capacity Forecasting',
+    title: 'Indian Map Integration',
     description:
-      'Predict energy production and storage needs with AI-driven forecasting models for optimal planning.',
+      'Geospatial mapping of renewable resources, demand centers, and infrastructure specifically for Indian states and cities.',
   },
   {
-    title: 'Asset Health Monitoring',
+    title: 'Data Processing & AI Insights',
     description:
-      'Track the performance and maintenance status of renewable assets to prevent downtime.',
+      'Python-powered backend with AI models for optimization, forecasting, and trend analysis in the hydrogen ecosystem.',
   },
   {
-    title: 'Collaboration Tools',
+    title: 'Collaboration & Sharing',
     description:
-      'Manage teams, assign roles, and streamline communication for project execution and reporting.',
+      'Enable project teams to collaborate, share dashboards, and export analytics for reporting and decision-making.',
   },
   {
-    title: 'Customizable Dashboards',
+    title: 'Open-Source Ecosystem',
     description:
-      'Tailor your dashboards to visualize the metrics and projects most relevant to your business goals.',
+      'Community-driven development with open contributions to accelerate green hydrogen innovation.',
   },
 ]
 

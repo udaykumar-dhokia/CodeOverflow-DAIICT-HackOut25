@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { axiosInstance } from '@/api/axiosInstance'
 import { toast } from 'sonner'
+import Loader from '@/components/custom/Loader'
 
 export const Route = createFileRoute(
   '/_public/auth/project-developer/_layout/login',
@@ -100,7 +101,7 @@ function RouteComponent() {
               disabled={loading}
               className="w-full rounded-none bg-primary hover:bg-primary/90 transition cursor-pointer"
             >
-              {loading ? 'Logging in...' : 'Continue'}
+              {loading ? <Loader /> : 'Continue'}
             </Button>
 
             <p className="text-center mt-2">

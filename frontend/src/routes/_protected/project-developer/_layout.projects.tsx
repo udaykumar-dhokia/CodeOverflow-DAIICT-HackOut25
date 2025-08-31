@@ -199,7 +199,7 @@ function RouteComponent() {
     >
       <div className="space-y-1">
         <p>
-          <strong>Budget:</strong> ${(asset.budget || 0).toLocaleString()}
+          <strong>Budget:</strong> ₹{(asset.budget || 0).toLocaleString()}
         </p>
         <p>
           <strong>Capacity:</strong> {asset.capacity || 0}
@@ -219,13 +219,6 @@ function RouteComponent() {
           onClick={() => handleViewReport(type, asset._id)}
         >
           View Report
-        </Button>
-        <Button
-          size={'sm'}
-          variant={'outline'}
-          className="rounded-none flex-1 hover:bg-primary hover:text-white cursor-pointer"
-        >
-          Download
         </Button>
         <Button
           size="sm"

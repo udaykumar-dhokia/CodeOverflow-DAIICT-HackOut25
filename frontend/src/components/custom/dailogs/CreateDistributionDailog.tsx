@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select'
 import { axiosInstance } from '@/api/axiosInstance'
 import { addDistributionHub } from '@/store/slices/assets.slice'
+import Loader from '../Loader'
 
 interface DistributionHubData {
   budget: number
@@ -75,7 +76,6 @@ export default function DistributionHubDialog({
         '/assets/upload-data/distribution-hub',
         payload,
       )
-      console.log('Response:', res.data)
       const data = await res.data
       store.dispatch(addDistributionHub(data))
       toast.success('Distribution Hub data uploaded successfully!')
@@ -184,7 +184,7 @@ export default function DistributionHubDialog({
             className="bg-primary hover:bg-primary/80 rounded-none w-full"
             disabled={loading}
           >
-            {loading ? 'Uploading...' : 'Analyse your plan'}
+            {loading ? <Loader /> : 'Get Analysis'}
           </Button>
         </DialogFooter>
       </DialogContent>

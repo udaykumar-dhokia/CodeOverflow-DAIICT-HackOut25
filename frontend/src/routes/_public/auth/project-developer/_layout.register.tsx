@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { axiosInstance } from '@/api/axiosInstance'
+import Loader from '@/components/custom/Loader'
 
 export const Route = createFileRoute(
   '/_public/auth/project-developer/_layout/register',
@@ -129,7 +130,7 @@ function RouteComponent() {
               disabled={loading}
               className="w-full rounded-none bg-primary hover:bg-primary/90 transition cursor-pointer"
             >
-              {loading ? 'Registering...' : 'Continue'}
+              {loading ? <Loader /> : 'Continue'}
             </Button>
 
             <p className="text-center mt-2">

@@ -1,6 +1,6 @@
 import FloatingButton from '@/components/custom/FloatingButton'
 import { ProjectDeveloperSidebar } from '@/components/custom/ProjectDeveloperSidebar'
-import { SidebarProvider } from '@/components/ui/sidebar'
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { setProjects } from '@/store/slices/assets.slice'
 import { loginSuccess } from '@/store/slices/project-developer.slice'
 import { store } from '@/store/store'
@@ -27,6 +27,7 @@ function RouteComponent() {
   return (
     <SidebarProvider>
       <ProjectDeveloperSidebar />
+      <SidebarTrigger />
       <main className="w-full">
         <Outlet />
       </main>

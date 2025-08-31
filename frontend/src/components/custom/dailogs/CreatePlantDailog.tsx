@@ -22,6 +22,7 @@ import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
 import { store, type RootState } from '@/store/store'
 import { addPlant } from '@/store/slices/assets.slice'
+import Loader from '../Loader'
 
 interface PlantData {
   budget: number
@@ -70,7 +71,6 @@ export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
         '/assets/upload-data/plants',
         payload,
       )
-      console.log('Response:', res.data)
       const planData = await res.data
       store.dispatch(addPlant(planData))
       toast.success('Plant data uploaded successfully!')
@@ -171,7 +171,7 @@ export default function PlantDialog({ open, onOpenChange }: PlantDialogProps) {
             className="bg-primary hover:bg-primary/80 rounded-none w-full"
             disabled={loading}
           >
-            {loading ? 'Uploading...' : 'Analyse your plan'}
+            {loading ? <Loader /> : 'Get Analysis'}
           </Button>
         </DialogFooter>
       </DialogContent>

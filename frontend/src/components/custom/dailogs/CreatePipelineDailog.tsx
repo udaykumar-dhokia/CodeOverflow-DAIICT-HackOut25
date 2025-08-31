@@ -15,6 +15,7 @@ import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
 import { store, type RootState } from '@/store/store'
 import { addPipeline, type Pipeline } from '@/store/slices/assets.slice'
+import Loader from '../Loader'
 
 interface PipelineData {
   budget: number
@@ -164,7 +165,7 @@ export default function PipelineDialog({
             className="bg-primary hover:bg-primary/80 rounded-none w-full"
             disabled={loading}
           >
-            {loading ? 'Analysing...' : 'Analyse Pipeline'}
+            {loading ? <Loader /> : 'Get Analysis'}
           </Button>
         </DialogFooter>
       </DialogContent>

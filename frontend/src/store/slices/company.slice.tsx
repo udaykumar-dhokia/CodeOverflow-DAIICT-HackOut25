@@ -31,13 +31,9 @@ const companyAuthSlice = createSlice({
   name: 'companyAuth',
   initialState,
   reducers: {
-    loginSuccess: (
-      state,
-      action: PayloadAction<{ user: Company; token: string }>,
-    ) => {
+    loginSuccess: (state, action) => {
       state.isAuthenticated = true
-      state.user = action.payload.user
-      state.token = action.payload.token
+      state.user = action.payload
     },
     logout: (state) => {
       state.isAuthenticated = false

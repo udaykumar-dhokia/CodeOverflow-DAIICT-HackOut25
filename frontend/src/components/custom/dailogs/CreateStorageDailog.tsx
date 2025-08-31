@@ -22,6 +22,7 @@ import { axiosInstance } from '@/api/axiosInstance'
 import { useSelector } from 'react-redux'
 import { store, type RootState } from '@/store/store'
 import { addStorage } from '@/store/slices/assets.slice'
+import Loader from '../Loader'
 
 interface StorageData {
   budget: number
@@ -76,7 +77,6 @@ export default function StorageDialog({
         payload,
       )
       store.dispatch(addStorage(res.data))
-      console.log('Response:', res.data)
       toast.success('Storage data uploaded successfully!')
       onOpenChange(false)
     } catch (err: any) {
@@ -162,8 +162,8 @@ export default function StorageDialog({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="plant">Near Plant</SelectItem>
-                <SelectItem value="hub">Near Hub</SelectItem>
-                <SelectItem value="grid">Near Grid</SelectItem>
+                <SelectItem value="demand">Demand</SelectItem>
+                <SelectItem value="port">Near Port</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -175,7 +175,7 @@ export default function StorageDialog({
             className="bg-primary hover:bg-primary/80 rounded-none w-full cursor-pointer"
             disabled={loading}
           >
-            {loading ? 'Uploading...' : 'Analyse your plan'}
+            {loading ? <Loader /> : 'Get Analysis'}
           </Button>
         </DialogFooter>
       </DialogContent>

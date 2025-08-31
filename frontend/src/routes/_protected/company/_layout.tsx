@@ -1,3 +1,5 @@
+import { CompanySidebar } from '@/components/custom/CompanySIdebar'
+import { SidebarProvider } from '@/components/ui/sidebar'
 import { loginSuccess } from '@/store/slices/company.slice'
 import { store } from '@/store/store'
 import { persistCompanyData } from '@/utils/auth'
@@ -7,7 +9,6 @@ export const Route = createFileRoute('/_protected/company/_layout')({
   component: RouteComponent,
   beforeLoad: async () => {
     const user = await persistCompanyData()
-    console.log(user)
     if (!user) {
       throw redirect({ to: '/auth/company/login' })
     }
@@ -20,7 +21,12 @@ export const Route = createFileRoute('/_protected/company/_layout')({
 function RouteComponent() {
   return (
     <>
-      <Outlet />
+      <SidebarProvider>
+        <CompanySidebar />
+        <main className="w-full">
+          <Outlet />
+        </main>
+      </SidebarProvider>
     </>
   )
 }
