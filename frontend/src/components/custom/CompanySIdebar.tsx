@@ -3,7 +3,6 @@ import {
   ChevronUp,
   LayoutDashboard,
   MapPinPlus,
-  MessageCircle,
   User,
   User2,
 } from 'lucide-react'

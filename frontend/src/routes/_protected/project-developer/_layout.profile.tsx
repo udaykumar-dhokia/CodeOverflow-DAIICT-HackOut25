@@ -1,9 +1,8 @@
 import { Icons } from '@/assets/icons'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { RootState } from '@/store/store'
 import { createFileRoute } from '@tanstack/react-router'
-import { Edit, User } from 'lucide-react'
+import { User } from 'lucide-react'
 import { useSelector } from 'react-redux'
 
 export const Route = createFileRoute(
