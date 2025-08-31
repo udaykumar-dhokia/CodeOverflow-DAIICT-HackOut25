@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from PyPDF2 import PdfReader
+from fastapi.middleware.cors import CORSMiddleware
 from langchain.prompts import PromptTemplate
 from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import CharacterTextSplitter
