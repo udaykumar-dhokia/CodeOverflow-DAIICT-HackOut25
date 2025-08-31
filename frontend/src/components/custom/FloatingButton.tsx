@@ -1,4 +1,3 @@
-import { Icons } from '@/assets/icons'
 import { Button } from '../ui/button'
 import {
   DropdownMenu,
