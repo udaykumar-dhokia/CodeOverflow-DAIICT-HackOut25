@@ -32,7 +32,7 @@ function RouteComponent() {
       <main className="w-full">
         <Outlet />
       </main>
-      <ChatWidget />
+      {/* <ChatWidget /> */}
       {/* <FloatingButton /> */}
     </SidebarProvider>
   )
