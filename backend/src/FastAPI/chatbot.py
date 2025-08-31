@@ -16,6 +16,17 @@ class QueryRequest(BaseModel):
     question: str
     type: Optional[str] = None
 app = FastAPI()
+origins = [
+    "http://localhost:5173",    
+    "https://h2grid.vercel.app" 
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,        
+    allow_credentials=True,
+    allow_methods=["*"],           
+    allow_headers=["*"],           
+)
 
 pdf_paths = [
     "backend/src/FastAPI/green-h2.pdf",
