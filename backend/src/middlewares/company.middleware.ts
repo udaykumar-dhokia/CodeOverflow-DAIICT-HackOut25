@@ -3,7 +3,9 @@ import HttpStatus from "../utils/httpStatus";
 import { verifyToken } from "../utils/jwt";
 
 const companyMiddleware = async (req, res, next) => {
-  const token = req.cookies.token || req.headers.authorization.split(" ")[1];
+  const token =
+    req.cookies.token ||
+    (req.headers.authorization && req.headers.authorization.split(" ")[1]);
   if (!token) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
