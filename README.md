@@ -21,6 +21,7 @@ H2Grid is a map-based tool designed to accelerate the development of the hydroge
 - **User-Friendly Interface**: Modern, responsive design for seamless interaction and visualization.
 - **Charts & Analytics**: Dynamic visualizations showing hydrogen production, consumption, and cost trends across regions in India.
 - **Indian Map Integration**: Geospatial mapping of renewable resources, demand centers, and infrastructure specifically for Indian states and cities.
+- **Marketplace Module**: The platform features a dedicated Marketplace where industry stakeholders can buy and sell key hydrogen-related raw materials and components, including electrolyzer parts, catalysts, membranes, and hydrogen carriers such as ammonia and methanol.
 
 ## Demo Images
 
@@ -34,6 +35,20 @@ Explore H2Grid's features through the following screenshots:
 
 | ![Demand Centers](./frontend/public/demo/d5.png) | ![Cost Optimization](./frontend/public/demo/d6.png) |
 | :----------------------------------------------: | :-------------------------------------------------: |
+
+| ![Demand Centers](./frontend/public/demo/d8.png) | ![Cost Optimization](./frontend/public/demo/d10.png) |
+| :----------------------------------------------: | :--------------------------------------------------: |
+
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="50" height="50"/>
+</p>
 
 ## Installation
 

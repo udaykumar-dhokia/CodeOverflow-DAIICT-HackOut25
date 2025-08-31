@@ -1,3 +1,4 @@
+import ChatWidget from '@/components/custom/chatbot/ChatBot'
 import FloatingButton from '@/components/custom/FloatingButton'
 import { ProjectDeveloperSidebar } from '@/components/custom/ProjectDeveloperSidebar'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
@@ -31,7 +32,8 @@ function RouteComponent() {
       <main className="w-full">
         <Outlet />
       </main>
-      <FloatingButton />
+      <ChatWidget />
+      {/* <FloatingButton /> */}
     </SidebarProvider>
   )
 }
